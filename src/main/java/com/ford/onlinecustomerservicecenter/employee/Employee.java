@@ -1,21 +1,23 @@
 package com.ford.onlinecustomerservicecenter.employee;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
+@Entity
 public class Employee {
 
     @Id
     @GeneratedValue
-    private String cdsId;
+    private Integer cdsId;
     private String firstName;
     private String lastName;
-    private Integer phoneNo;
+    private Long phoneNo;
     private String email;
     private String password;
     private String city;
 
-    public Employee(String cdsId, String firstName, String lastName, Integer phoneNo,
+    public Employee(Integer cdsId, String firstName, String lastName, Long phoneNo,
                     String email, String password, String city) {
         super();
         this.cdsId = cdsId;
@@ -27,11 +29,11 @@ public class Employee {
         this.city = city;
     }
 
-    public String getCdsId() {
+    public Integer getCdsId() {
         return cdsId;
     }
 
-    public void setCdsId(String cdsId) {
+    public void setCdsId(Integer cdsId) {
         this.cdsId = cdsId;
     }
 
@@ -51,11 +53,11 @@ public class Employee {
         this.lastName = lastName;
     }
 
-    public Integer getPhoneNo() {
+    public Long getPhoneNo() {
         return phoneNo;
     }
 
-    public void setPhoneNo(Integer phoneNo) {
+    public void setPhoneNo(Long phoneNo) {
         this.phoneNo = phoneNo;
     }
 
