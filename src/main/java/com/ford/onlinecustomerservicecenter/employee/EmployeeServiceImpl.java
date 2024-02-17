@@ -11,12 +11,12 @@ public class EmployeeServiceImpl implements EmployeeService{
     private EmployeeRepository employeeRepository;
 
     @Override
-    public Employee addNewEmployee(Employee employee) {
+    public Employee addNewEmployee(Employee employee) throws EmployeeException{
         return this.employeeRepository.save(employee);
     }
 
     @Override
-    public Employee getEmployeeById(Integer cdsId) {
+    public Employee getEmployeeById(Integer cdsId) throws EmployeeException{
         return this.employeeRepository.findById(cdsId).get();
     }
 
