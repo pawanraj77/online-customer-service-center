@@ -1,2 +1,4 @@
-package com.ford.onlinecustomerservicecenter.operator;public interface OperatorRepository {
+package com.ford.onlinecustomerservicecenter.operator;
+
+public interface OperatorRepository {
 }

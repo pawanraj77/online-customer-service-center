@@ -1,2 +1,4 @@
-package com.ford.onlinecustomerservicecenter.admin;public class AdminServiceImpl {
+package com.ford.onlinecustomerservicecenter.admin;
+
+public class AdminServiceImpl {
 }

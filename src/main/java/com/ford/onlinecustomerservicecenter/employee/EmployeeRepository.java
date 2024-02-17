@@ -1,2 +1,4 @@
-package com.ford.onlinecustomerservicecenter.employee;public interface EmployeeRepository {
+package com.ford.onlinecustomerservicecenter.employee;
+
+public interface EmployeeRepository {
 }

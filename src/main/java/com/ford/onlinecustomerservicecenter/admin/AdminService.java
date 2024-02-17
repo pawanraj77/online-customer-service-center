@@ -1,2 +1,4 @@
-package com.ford.onlinecustomerservicecenter.admin;public interface AdminService {
+package com.ford.onlinecustomerservicecenter.admin;
+
+public interface AdminService {
 }

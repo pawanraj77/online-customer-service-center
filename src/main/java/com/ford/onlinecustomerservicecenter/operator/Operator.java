@@ -1,2 +1,4 @@
-package com.ford.onlinecustomerservicecenter.operator;public class Operator {
+package com.ford.onlinecustomerservicecenter.operator;
+
+public class Operator {
 }
