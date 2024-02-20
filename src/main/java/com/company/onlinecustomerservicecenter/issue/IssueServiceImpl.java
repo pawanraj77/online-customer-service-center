@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class IssueServiceImpl implements IssueService{
 
-//    @Autowired
-//    private IssueService issueService;
+    @Autowired
+    private IssueRepository issueRepository;
 
 
 
