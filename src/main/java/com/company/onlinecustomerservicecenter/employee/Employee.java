@@ -7,7 +7,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 public class Employee {
@@ -25,10 +27,10 @@ public class Employee {
 //    private Boolean isAdmin = false;
 
     @OneToMany
-    private List<Issue> issues = new ArrayList<>();
+    private Map<Integer, Issue> issues = new HashMap<>();
 
     public Employee(Integer cdsId, String firstName, String lastName, Long phoneNo,
-                    String email, String password, String city, List<Issue> issue) {
+                    String email, String password, String city, Map<Integer, Issue> issues) {
         super();
         this.cdsId = cdsId;
         this.firstName = firstName;
@@ -37,7 +39,7 @@ public class Employee {
         this.email = email;
         this.password = password;
         this.city = city;
-        this.issues = issue;
+        this.issues = issues;
     }
 
     public Integer getCdsId() {
@@ -96,12 +98,12 @@ public class Employee {
         this.city = city;
     }
 
-    public List<Issue> getIssues() {
+    public Map<Integer, Issue> getIssues() {
         return issues;
     }
 
-    public void setIssues(List<Issue> issue) {
-        this.issues = issue;
+    public void setIssues(Map<Integer, Issue> issue) {
+        this.issues = issues;
     }
 
     public Employee() {

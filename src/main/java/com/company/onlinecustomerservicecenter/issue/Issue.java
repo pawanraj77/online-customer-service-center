@@ -1,7 +1,7 @@
 package com.company.onlinecustomerservicecenter.issue;
 
 import com.company.onlinecustomerservicecenter.employee.Employee;
-import com.company.onlinecustomerservicecenter.entity.Solution;
+import com.company.onlinecustomerservicecenter.solution.Solution;
 import com.company.onlinecustomerservicecenter.operator.Operator;
 import jakarta.persistence.*;
 

@@ -1,4 +1,4 @@
-package com.company.onlinecustomerservicecenter.entity;
+package com.company.onlinecustomerservicecenter.department;
 
 import com.company.onlinecustomerservicecenter.operator.Operator;
 import jakarta.persistence.Entity;

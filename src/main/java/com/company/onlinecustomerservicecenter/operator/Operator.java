@@ -1,6 +1,6 @@
 package com.company.onlinecustomerservicecenter.operator;
 
-import com.company.onlinecustomerservicecenter.entity.Department;
+import com.company.onlinecustomerservicecenter.department.Department;
 import com.company.onlinecustomerservicecenter.issue.Issue;
 import jakarta.persistence.*;
 
@@ -81,13 +81,7 @@ public class Operator {
         this.city = city;
     }
 
-    public List<Issue> getIssues() {
-        return issues;
-    }
 
-    public void setIssues(List<Issue> issues) {
-        this.issues = issues;
-    }
 
     public Department getDepartment() {
         return department;
@@ -97,8 +91,15 @@ public class Operator {
         this.department = department;
     }
 
+    public List<Issue> getIssues() {
+        return issues;
+    }
+
+    public void setIssues(List<Issue> issues) {
+        this.issues = issues;
+    }
+
     public Operator(Integer operatorId, String firstName, String lastName, String email, String password, String phoneNo, String city, List<Issue> issues, Department department) {
-        super();
         this.operatorId = operatorId;
         this.firstName = firstName;
         this.lastName = lastName;

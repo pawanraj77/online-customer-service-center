@@ -1,4 +1,4 @@
-package com.company.onlinecustomerservicecenter.entity;
+package com.company.onlinecustomerservicecenter.solution;
 
 import com.company.onlinecustomerservicecenter.issue.Issue;
 import com.company.onlinecustomerservicecenter.operator.Operator;
@@ -19,15 +19,13 @@ public class Solution {
     @OneToOne
     private Issue issue;
 
-//    @OneToOne
-//    private Operator operator;
 
-    public Solution(Integer solutionId, String description, LocalDate date, Issue issue, Operator operator) {
+
+    public Solution(Integer solutionId, String description, LocalDate date, Issue issue) {
         this.solutionId = solutionId;
         this.description = description;
         this.date = date;
         this.issue = issue;
-//        this.operator = operator;
     }
 
     public Integer getSolutionId() {
@@ -62,13 +60,6 @@ public class Solution {
         this.issue = issue;
     }
 
-//    public Operator getOperator() {
-//        return operator;
-//    }
-//
-//    public void setOperator(Operator operator) {
-//        this.operator = operator;
-//    }
 
     public Solution() {
     }
