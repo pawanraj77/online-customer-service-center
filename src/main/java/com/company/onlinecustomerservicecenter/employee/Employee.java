@@ -26,11 +26,11 @@ public class Employee {
 
 //    private Boolean isAdmin = false;
 
-    @OneToMany
-    private Map<Integer, Issue> issues = new HashMap<>();
+//    @OneToMany
+//    private Map<Integer, Issue> issues = new HashMap<>();
 
     public Employee(Integer cdsId, String firstName, String lastName, Long phoneNo,
-                    String email, String password, String city, Map<Integer, Issue> issues) {
+                    String email, String password, String city) {
         super();
         this.cdsId = cdsId;
         this.firstName = firstName;
@@ -39,7 +39,7 @@ public class Employee {
         this.email = email;
         this.password = password;
         this.city = city;
-        this.issues = issues;
+//        this.issues = issues;
     }
 
     public Integer getCdsId() {
@@ -98,15 +98,16 @@ public class Employee {
         this.city = city;
     }
 
-    public Map<Integer, Issue> getIssues() {
-        return issues;
-    }
-
-    public void setIssues(Map<Integer, Issue> issue) {
-        this.issues = issues;
-    }
+//    public Map<Integer, Issue> getIssues() {
+//        return issues;
+//    }
+//
+//    public void setIssues(Map<Integer, Issue> issue) {
+//        this.issues = issues;
+//    }
 
     public Employee() {
-        super();
+
+    super();
     }
 }

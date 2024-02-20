@@ -1,11 +1,14 @@
 package com.company.onlinecustomerservicecenter.issue;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Service;
 
-@RestController
-public class IssueController {
+@Service
+public class IssueServiceImpl implements IssueService{
 
 //    @Autowired
 //    private IssueService issueService;
+
+
+
 }
