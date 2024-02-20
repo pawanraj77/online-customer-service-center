@@ -3,6 +3,7 @@ package com.company.onlinecustomerservicecenter.issue;
 import com.company.onlinecustomerservicecenter.employee.Employee;
 import com.company.onlinecustomerservicecenter.solution.Solution;
 import com.company.onlinecustomerservicecenter.operator.Operator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -16,9 +17,11 @@ public class Issue {
     @OneToOne
     private Solution solution;
 
+    @JsonIgnore
     @ManyToOne
     private Employee employee;
 
+    @JsonIgnore
     @ManyToOne
     private Operator operator;
 

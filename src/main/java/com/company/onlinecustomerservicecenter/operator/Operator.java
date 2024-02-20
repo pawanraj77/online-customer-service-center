@@ -2,6 +2,7 @@ package com.company.onlinecustomerservicecenter.operator;
 
 import com.company.onlinecustomerservicecenter.department.Department;
 import com.company.onlinecustomerservicecenter.issue.Issue;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class Operator {
     private List<Issue> issues = new ArrayList<>();
 
     @ManyToOne
+    @JsonIgnore
     private Department department;
 
     public Integer getOperatorId() {
