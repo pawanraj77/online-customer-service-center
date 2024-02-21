@@ -1,6 +1,5 @@
 package com.company.onlinecustomerservicecenter.department;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +28,4 @@ public class DepartmentController {
     public Department deleteDepartmentById(@PathVariable("id") Integer id){
         return this.departmentService.deleteDepartmentById(id);
     }
-
-
 }

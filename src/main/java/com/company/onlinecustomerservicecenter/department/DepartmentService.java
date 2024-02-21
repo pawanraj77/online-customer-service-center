@@ -1,5 +1,6 @@
 package com.company.onlinecustomerservicecenter.department;
 
+
 import java.util.List;
 
 public interface DepartmentService {
@@ -10,4 +11,5 @@ public interface DepartmentService {
     List<Department> getAllDepartment();
 
     Department deleteDepartmentById(Integer id);
+
 }

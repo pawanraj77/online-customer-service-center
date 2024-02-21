@@ -38,5 +38,4 @@ public class DepartmentServiceImpl implements DepartmentService{
         return d1;
     }
 
-
 }
