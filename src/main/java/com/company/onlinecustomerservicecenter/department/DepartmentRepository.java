@@ -1,4 +1,7 @@
 package com.company.onlinecustomerservicecenter.department;
 
-public interface DepartmentRepository {
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface DepartmentRepository extends JpaRepository<Department,Integer> {
 }
