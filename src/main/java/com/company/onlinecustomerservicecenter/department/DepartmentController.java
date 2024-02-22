@@ -1,7 +1,5 @@
 package com.company.onlinecustomerservicecenter.department;
 
-
-import com.company.onlinecustomerservicecenter.operator.Operator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,7 +7,12 @@ import java.util.List;
 
 @RestController
 public class DepartmentController {
+
     @Autowired
+    public DepartmentController(DepartmentService departmentService) {
+        this.departmentService = departmentService;
+    }
+
     private DepartmentService departmentService;
     @PostMapping("add/department")
     public Department addDepartment(@RequestBody Department d) throws DepartmentException{

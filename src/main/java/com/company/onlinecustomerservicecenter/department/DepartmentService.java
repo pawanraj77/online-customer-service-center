@@ -1,7 +1,5 @@
 package com.company.onlinecustomerservicecenter.department;
 
-import com.company.onlinecustomerservicecenter.operator.Operator;
-
 import java.util.List;
 
 public interface DepartmentService {
