@@ -35,4 +35,8 @@ public class DepartmentController {
     }
 
 
+    @PutMapping("department")
+    public Department updateDepartment(@RequestBody Department department) throws DepartmentException {
+        return this.departmentService.updateDepartment(department);
+    }
 }
