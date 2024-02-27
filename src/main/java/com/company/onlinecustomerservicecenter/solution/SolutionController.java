@@ -8,8 +8,13 @@ import java.util.List;
 
 @RestController
 public class SolutionController {
+    //@Autowired
+    private final SolutionService solutionService;
     @Autowired
-    private SolutionService solutionService;
+    public SolutionController(SolutionService solutionService) {
+        this.solutionService = solutionService;
+    }
+
     @PostMapping("add/{issueId}")
     public Solution postSolutionForGivenIssueId(@PathVariable("issueId") Integer issueId,Solution solution) throws SolutionException {
         return this.solutionService.postSolutionForGivenIssueId(issueId,solution);

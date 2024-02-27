@@ -9,12 +9,20 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+
 @Service
 public class SolutionServiceImpl implements SolutionService {
+    private final SolutionRepository solutionRepository;
+    private final IssueRepository issueRepository;
     @Autowired
-    private SolutionRepository solutionRepository;
-    @Autowired
-    private IssueRepository issueRepository;
+    public SolutionServiceImpl(SolutionRepository solutionRepository, IssueRepository issueRepository) {
+        this.solutionRepository = solutionRepository;
+        this.issueRepository = issueRepository;
+    }
+
+
+
+
     @Override
     public Solution postSolutionForGivenIssueId(Integer issueId, Solution solution) throws SolutionException {
         Optional<Issue> issueOptional = this.issueRepository.findById(issueId);
