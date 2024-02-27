@@ -17,7 +17,7 @@ public class Solution {
     private String description;
     private LocalDate date;
 
-    private Boolean resolved = false;
+
     @JsonIgnore
     @OneToOne
     private Issue issue;
@@ -26,11 +26,10 @@ public class Solution {
     public Solution() {
     }
 
-    public Solution(Integer solutionId, String description, LocalDate date, Boolean resolved, Issue issue) {
+    public Solution(Integer solutionId, String description, LocalDate date, Issue issue) {
         this.solutionId = solutionId;
         this.description = description;
         this.date = date;
-        this.resolved = resolved;
         this.issue = issue;
     }
 
@@ -56,14 +55,6 @@ public class Solution {
 
     public void setDate(LocalDate date) {
         this.date = date;
-    }
-
-    public Boolean getResolved() {
-        return resolved;
-    }
-
-    public void setResolved(Boolean resolved) {
-        this.resolved = resolved;
     }
 
     public Issue getIssue() {
