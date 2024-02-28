@@ -18,4 +18,6 @@ public interface IssueService {
     Issue viewIssue(Integer issueId) throws IssueException;
 
     List<Issue> getAllIssues() throws IssueException;
+  
+//     Issue addIssue(Issue issue);
 }

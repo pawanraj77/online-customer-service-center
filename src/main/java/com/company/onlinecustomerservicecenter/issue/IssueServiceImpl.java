@@ -90,5 +90,14 @@ public class IssueServiceImpl implements IssueService{
     public List<Issue> getAllIssues() throws IssueException {
         return this.issueRepository.findAll();
     }
+  
+    //     @Override
+//     public Issue addIssue(Issue issue) {
+//         return this.issueRepository.save(issue);
+//     }
 
 }
+   
+
+
+

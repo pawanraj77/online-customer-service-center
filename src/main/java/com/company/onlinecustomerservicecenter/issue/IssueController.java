@@ -2,6 +2,8 @@ package com.company.onlinecustomerservicecenter.issue;
 
 import com.company.onlinecustomerservicecenter.solution.Solution;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,11 +43,21 @@ public class IssueController {
     public List<Issue> getAllIssues()  throws IssueException{
         return this.issueService.getAllIssues();
     }
+    
+    //     private final IssueService issueService;
+//      @Autowired
+//     public IssueController(IssueService issueService) {
+//         this.issueService = issueService;
+//     }
 
-
-
-
-
-
+//     @PostMapping("add")
+//     public Issue addIssue(Issue issue){
+//         return this.issueService.addIssue(issue);
+//     }
 
 }
+
+
+
+
+
