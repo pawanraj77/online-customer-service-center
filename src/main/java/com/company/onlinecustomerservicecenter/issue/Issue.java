@@ -30,12 +30,13 @@ public class Issue {
         this.operator = operator;
     }
 
-    public Issue(Integer issueId, String issueType, String description, Solution solution, Employee employee) {
+    public Issue(Integer issueId, String issueType, String description, Solution solution, Employee employee, Operator operator) {
         this.issueId = issueId;
         this.issueType = issueType;
         this.description = description;
         this.solution = solution;
         this.employee = employee;
+        this.operator = operator;
     }
 
     public Integer getIssueId() {

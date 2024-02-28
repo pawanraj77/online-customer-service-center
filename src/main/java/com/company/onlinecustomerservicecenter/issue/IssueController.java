@@ -16,9 +16,9 @@ public class IssueController {
         return this.issueService.createIssue(issue);
     }
 
-    @PutMapping("issue/issueid/issuestatus/issuedescription/issuesolution/{issueId}/{issueStatus}/{issueDescription}/{issueSolution}")
-    public Issue updateIssue(@PathVariable("issueId") Integer issueId, @PathVariable("issueStatus") String issueStatus, @PathVariable("issueDescription") String issueDescription, @PathVariable("issueSolution")Solution issueSolution)  throws IssueException{
-        return this.issueService.updateIssue(issueId,issueStatus,issueDescription, issueSolution);
+    @PutMapping("issue/issueid/issuedescription/issuesolution/{issueId}/{issueDescription}/{issueSolution}")
+    public Issue updateIssue(@PathVariable("issueId") Integer issueId, @PathVariable("issueDescription") String issueDescription, @PathVariable("issueSolution")Solution issueSolution)  throws IssueException{
+        return this.issueService.updateIssue(issueId,issueDescription, issueSolution);
     }
 
     @PutMapping("issue/issueid/{issueId}")
