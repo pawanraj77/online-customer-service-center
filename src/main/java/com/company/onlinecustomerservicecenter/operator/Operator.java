@@ -4,6 +4,7 @@ import com.company.onlinecustomerservicecenter.department.Department;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.company.onlinecustomerservicecenter.entity.Department;
 import com.company.onlinecustomerservicecenter.issue.Issue;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -23,6 +24,7 @@ public class Operator {
     private IssueBucket issueBucket;
     @JsonIgnore
     @ManyToOne
+    @JsonIgnore
     private Department department;
     public Operator() {
     }

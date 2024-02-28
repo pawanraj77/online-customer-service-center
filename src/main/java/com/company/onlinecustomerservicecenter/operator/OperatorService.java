@@ -22,4 +22,5 @@ public interface OperatorService {
     Integer remainingIssuesByOperator(Integer operatorId)throws OperatorException;
 
     List<Operator> getAllOperatorsByDept(Integer id) throws OperatorException;
+
 }
