@@ -10,10 +10,15 @@ import java.util.List;
 public class OperatorController {
     @Autowired
     private OperatorService operatorService;
-    @PostMapping("create/operator/{deptId}")
-    public Operator createOperator(@RequestBody Operator operator,@PathVariable("deptId")Integer id) throws OperatorException {
-        return this.operatorService.createAnOperator(operator,id);
+    @PostMapping("create/operator")
+    public Operator createOperator(@RequestBody Operator operator) throws OperatorException {
+        return this.operatorService.createAnOperator(operator);
     }
+    @PutMapping("addOperatorToDept/{operatorId}/{deptId}")
+    public Operator assignOperatorToDept(@PathVariable("operatorId") Integer operatorId,@PathVariable("deptId") Integer deptId) throws OperatorException {
+        return this.operatorService.assignOperatorToDept(operatorId,deptId);
+    }
+
     @PostMapping("add/issues")
     public Issue addIssue(@RequestBody Issue issue)
     {
@@ -24,7 +29,8 @@ public class OperatorController {
         return this.operatorService.assignIssue(operatorId,issueId);
     }
     @GetMapping("operator/all")
-    public List<Operator> getAllOperator() {
+    public List<Operator> getAllOperator()
+    {
         return this.operatorService.getAllOperator();
     }
     @GetMapping("issues/all")
