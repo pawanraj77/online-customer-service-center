@@ -5,7 +5,7 @@ import com.company.onlinecustomerservicecenter.issue.Issue;
 import java.util.List;
 
 public interface OperatorService {
-    public Operator createAnOperator(Operator operator,Integer id)throws OperatorException;
+    public Operator createAnOperator(Operator operator)throws OperatorException;
 
     Issue addIssue(Issue issue);
 
@@ -22,4 +22,6 @@ public interface OperatorService {
     Integer remainingIssuesByOperator(Integer operatorId)throws OperatorException;
 
     List<Operator> getAllOperatorsByDept(Integer id) throws OperatorException;
+
+    Operator assignOperatorToDept(Integer operatorId, Integer deptId)throws OperatorException;
 }
