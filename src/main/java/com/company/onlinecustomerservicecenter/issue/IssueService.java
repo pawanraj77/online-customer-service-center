@@ -7,7 +7,7 @@ import java.util.List;
 public interface IssueService {
     Issue createIssue(Issue issue) throws IssueException;
 
-    Issue updateIssue(Integer issueId, String issueDescription, String description, Solution issueSolution) throws IssueException;
+    Issue updateIssue(Integer issueId, String issueDescription, Solution issueSolution) throws IssueException;
 
     Issue deleteIssue(Integer issueId) throws IssueException;
 
