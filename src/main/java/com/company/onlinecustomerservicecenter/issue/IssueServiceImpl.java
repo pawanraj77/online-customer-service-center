@@ -25,7 +25,7 @@ public class IssueServiceImpl implements IssueService{
     }
 
     @Override
-    public Issue updateIssue(Integer issueId, String issueDescription, String description, Solution issueSolution) throws IssueException {
+    public Issue updateIssue(Integer issueId, String issueDescription, Solution issueSolution) throws IssueException {
         Optional<Issue> issueOpt = this.issueRepository.findByIssueId(issueId);
         if(issueOpt.isEmpty()){
             throw new IssueException("Issue does not exist with id: "+issueId);
