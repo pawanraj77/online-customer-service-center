@@ -101,14 +101,16 @@ class OperatorApplicationTests
             Assertions.fail(e.getMessage());
         }
     }
-     @Override
-    public List<Issue> assignedIssues(Integer id)throws OperatorException {
-        Optional<Operator>operatorOpt=this.operatorRepository.findById(id);
-        if(operatorOpt.isEmpty())
-            throw new OperatorException("Please check your id and reenter....");
-        Operator operator=operatorOpt.get();
-        List<Issue>allIssues=operator.getIssueBucket().getIssues();
-        return allIssues;
+    @Test
+    @DisplayName("To get all issues assigned to operator")
+    void allAssignedIssues()
+    {
+        List<Issue>issueList=null;
+        try{
+            issueList=this.operatorService.assignedIssues(1);
+            Assertions.assertNotNull(issueList);
+        } catch (OperatorException e) {
+            Assertions.fail(e.getMessage());
+        }
     }
-
 }
