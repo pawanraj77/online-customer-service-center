@@ -127,4 +127,13 @@ public class OperatorServiceImpl implements OperatorService {
         this.departmentRepo.save(department);
         return operator;
     }
+     @Override
+    public List<Issue> assignedIssues(Integer id)throws OperatorException {
+        Optional<Operator>operatorOpt=this.operatorRepository.findById(id);
+        if(operatorOpt.isEmpty())
+            throw new OperatorException("Please check your id and reenter....");
+        Operator operator=operatorOpt.get();
+        List<Issue>allIssues=operator.getIssueBucket().getIssues();
+        return allIssues;
+    }
 }
