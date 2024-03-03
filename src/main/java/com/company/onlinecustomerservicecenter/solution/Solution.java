@@ -1,7 +1,8 @@
 package com.company.onlinecustomerservicecenter.solution;
 
 import com.company.onlinecustomerservicecenter.issue.Issue;
-import com.company.onlinecustomerservicecenter.operator.Operator;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -16,15 +17,20 @@ public class Solution {
     private String description;
     private LocalDate date;
 
+    private Boolean resolved = false;
+    @JsonIgnore
     @OneToOne
     private Issue issue;
 
 
+    public Solution() {
+    }
 
-    public Solution(Integer solutionId, String description, LocalDate date, Issue issue) {
+    public Solution(Integer solutionId, String description, LocalDate date, Boolean resolved, Issue issue) {
         this.solutionId = solutionId;
         this.description = description;
         this.date = date;
+        this.resolved = resolved;
         this.issue = issue;
     }
 
@@ -52,15 +58,19 @@ public class Solution {
         this.date = date;
     }
 
+    public Boolean getResolved() {
+        return resolved;
+    }
+
+    public void setResolved(Boolean resolved) {
+        this.resolved = resolved;
+    }
+
     public Issue getIssue() {
         return issue;
     }
 
     public void setIssue(Issue issue) {
         this.issue = issue;
-    }
-
-
-    public Solution() {
     }
 }

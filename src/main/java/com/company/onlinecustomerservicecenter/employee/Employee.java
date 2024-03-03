@@ -1,15 +1,10 @@
 package com.company.onlinecustomerservicecenter.employee;
 
 import com.company.onlinecustomerservicecenter.issue.Issue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Entity
 public class Employee {
@@ -19,18 +14,18 @@ public class Employee {
     private Integer cdsId;
     private String firstName;
     private String lastName;
-    private Long phoneNo;
+    private String phoneNo;
     private String email;
     private String password;
     private String city;
 
-//    private Boolean isAdmin = false;
 
-    @OneToMany
-    private Map<Integer, Issue> issues = new HashMap<>();
+//    @JsonIgnore
+    @OneToMany(mappedBy = "employee", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Issue> issues = new ArrayList<>();
 
-    public Employee(Integer cdsId, String firstName, String lastName, Long phoneNo,
-                    String email, String password, String city, Map<Integer, Issue> issues) {
+    public Employee(Integer cdsId, String firstName, String lastName, String phoneNo,
+                    String email, String password, String city, List<Issue> issues) {
         super();
         this.cdsId = cdsId;
         this.firstName = firstName;
@@ -41,6 +36,8 @@ public class Employee {
         this.city = city;
         this.issues = issues;
     }
+
+
 
     public Integer getCdsId() {
         return cdsId;
@@ -66,11 +63,11 @@ public class Employee {
         this.lastName = lastName;
     }
 
-    public Long getPhoneNo() {
+    public String getPhoneNo() {
         return phoneNo;
     }
 
-    public void setPhoneNo(Long phoneNo) {
+    public void setPhoneNo(String phoneNo) {
         this.phoneNo = phoneNo;
     }
 
@@ -98,15 +95,24 @@ public class Employee {
         this.city = city;
     }
 
-    public Map<Integer, Issue> getIssues() {
+    public List<Issue> getIssues() {
         return issues;
     }
 
-    public void setIssues(Map<Integer, Issue> issue) {
+    public void setIssues(List<Issue> issues) {
         this.issues = issues;
     }
 
+    public void addIssue(Issue issue) {
+
+        if (issues == null) {
+            issues = new ArrayList<>();
+        }
+        issues.add(issue);
+    }
+
     public Employee() {
-        super();
+
+    super();
     }
 }

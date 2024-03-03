@@ -26,4 +26,5 @@ public interface OperatorService {
     List<Issue> assignedIssues(Integer id)throws OperatorException;
 
     Operator assignOperatorToDept(Integer operatorId, Integer deptId)throws OperatorException;
+
 }
