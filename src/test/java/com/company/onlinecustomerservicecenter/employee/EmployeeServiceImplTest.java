@@ -29,7 +29,7 @@ class EmployeeServiceImplTest {
 
 
     @Test
-    @DisplayName(value = "add employee to the repository")
+    @DisplayName(value = "add employee with unique email")
     void addNewEmployeeTest() throws EmployeeException{
 
         Employee employee = null;
@@ -53,8 +53,8 @@ class EmployeeServiceImplTest {
     }
 
     @Test
-    @DisplayName(value = "get employee by cdsId")
-    void getEmployeeByIdTest() throws EmployeeException{
+    @DisplayName(value = "get employee by not null cdsId")
+    void getEmployeeByNotNullIdTest() throws EmployeeException{
 
         Employee employee = null;
         try {
@@ -71,8 +71,53 @@ class EmployeeServiceImplTest {
         employeeRepository.delete(employee);
     }
 
+
+    @Test // +ve
+    @DisplayName(value = "get all employees with values")
+    void getAllEmployees() throws EmployeeException{
+        List<Employee> employeeList = null;
+        try{
+            this.employeeService.addNewEmployee(new Employee(1, "pawan", "raj",
+                    "98839393", "pawan@gmail", "5667",  "chennai", null));
+
+            this.employeeService.addNewEmployee(new Employee(2, "rohit", "raj",
+                    "98839393", "praj16@gmail", "5667",  "chennai", null));
+
+            this.employeeService.addNewEmployee(new Employee(3, "priyansh", "raj",
+                    "98839393", "priyansh@gmail", "5667",  "chennai", null));
+
+            employeeList = this.employeeService.getAllEmployees();
+
+            Assertions.assertEquals(3, employeeList.size());
+
+        }
+        catch (EmployeeException e)
+        {
+            Assertions.fail(e.getMessage());
+        }
+        employeeRepository.deleteAll();
+    }
+
+
+    @Test // -ve
+    @DisplayName(value = "get all employees without values")
+    void getAllEmployeesWithoutData() throws EmployeeException{
+
+        try{
+            List<Employee> employeeList = this.employeeService.getAllEmployees();
+        }
+        catch (EmployeeException e)
+        {
+            Assertions.assertEquals("No Employees exists, add employees!!!",
+                    e.getMessage());
+        }
+        employeeRepository.deleteAll();
+    }
+
+
+
     @Test
-    @DisplayName(value = "forget password by using cdsId")
+    @DisplayName(value = "forget password by cdsId")
     void forgetPasswordTest() throws EmployeeException {
 
         Employee employee = null;
@@ -127,6 +172,11 @@ class EmployeeServiceImplTest {
 
             Optional<Employee> employeeOpt = this.employeeRepository.findByEmail(loginDto.getEmail());
 
+            if(employeeOpt.isEmpty())
+            {
+                throw new EmployeeException("Employee not found");
+            }
+
             employee = employeeOpt.get();
 
             String result = employeeService.changePassword(loginDto);
@@ -169,9 +219,9 @@ class EmployeeServiceImplTest {
             issue = this.employeeService.addNewIssue(new Issue(1, "software",
                     "how to stop lagging", null, null, null));
 
-            Employee result = this.employeeService.raiseIssue(employee.getCdsId(), issue.getIssueId());
+            String result = this.employeeService.raiseIssue(employee.getCdsId(), issue.getIssueId());
 
-            Assertions.assertEquals(employee, result);
+            Assertions.assertEquals("Issue raised successfully", result);
 
         }
         catch (EmployeeException e) {
@@ -183,8 +233,8 @@ class EmployeeServiceImplTest {
     }
 
     @Test
-    @DisplayName(value = "view issue By particular employee id")
-    void viewNotNullIssueByEmployeeTest() {
+    @DisplayName(value = "view issue By employee id")
+    void viewNotNullIssueByEmployeeTest() throws EmployeeException{
         Employee employee = null;
         Issue issue = null;
 
@@ -194,20 +244,45 @@ class EmployeeServiceImplTest {
             issue = this.employeeService.addNewIssue(new Issue(1, "software",
                     "how to stop lagging", null, null, null));
 
-            this.employeeService.raiseIssue(1, 1);
-
-            employeeRepository.save(employee);
-            issueRepository.save(issue);
+            this.employeeService.raiseIssue(employee.getCdsId(), issue.getIssueId());
 
             List<Issue> issues = this.employeeService.viewIssuesByCustomer(employee.getCdsId());
-
             Assertions.assertNotNull(issues);
 
         } catch (EmployeeException e) {
             Assertions.fail(e.getMessage());
         }
-        employeeRepository.delete(employee);
-        issueRepository.delete(issue);
 
     }
+
+//    @Test
+//    @DisplayName(value = "view issue By employee id")
+//    void viewIssueByEmployeeIdTestCheckValidSize() throws EmployeeException{
+//        Employee employee = null;
+//        Issue issue = null;
+//        Issue issue1 = null;
+//        List<Issue> issues = null;
+//
+//        try {
+//            employee = this.employeeService.addNewEmployee(new Employee(1, "pawan", "raj",
+//                    "98839393", "pawan@gmail", "pkl$$5667", "chennai", null));
+//            issue = this.employeeService.addNewIssue(new Issue(1, "software",
+//                    "how to stop lagging", null, null, null));
+//
+//            issue1 = this.employeeService.addNewIssue(new Issue(2, "hardware",
+//                    "keyboard not working", null, null, null));
+//
+//            this.employeeService.raiseIssue(employee.getCdsId(), issue.getIssueId());
+//            this.employeeService.raiseIssue(employee.getCdsId(), issue1.getIssueId());
+//
+//            issues = this.employeeService.viewIssuesByCustomer(1);
+//            Assertions.assertEquals(2, issues.size());
+//
+//        } catch (EmployeeException e) {
+//            Assertions.fail(e.getMessage());
+//        }
+//        employeeRepository.delete(employee);
+//        issueRepository.delete(issue);
+//        issueRepository.delete(issue1);
+//    }
 }

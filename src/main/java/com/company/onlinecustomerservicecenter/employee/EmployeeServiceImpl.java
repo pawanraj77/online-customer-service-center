@@ -92,6 +92,16 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
+    public List<Employee> getAllEmployees() throws EmployeeException{
+        List<Employee> employees = this.employeeRepository.findAll();
+        if(employees.isEmpty())
+        {
+            throw new EmployeeException("No Employees exists, add employees!!!");
+        }
+        return this.employeeRepository.findAll();
+    }
+
+    @Override
     public List<Issue> viewIssuesByCustomer(Integer cdsId) throws EmployeeException{
         Optional<Employee> employeeOpt = this.employeeRepository.findById(cdsId);
         if(employeeOpt.isEmpty()) {
@@ -109,7 +119,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 
 
     @Override
-    public Employee raiseIssue(Integer cdsId, Integer issueId) {
+    public String raiseIssue(Integer cdsId, Integer issueId) {
         Optional<Employee> employeeOpt = this.employeeRepository.findById(cdsId);
         Optional<Issue> issueOpt = this.issueRepository.findById(issueId);
 
@@ -129,7 +139,7 @@ public class EmployeeServiceImpl implements EmployeeService{
         this.employeeRepository.save(employee);
         this.issueRepository.save(issue);
 
-        return employee;
+        return "Issue raised successfully";
 
     }
 
