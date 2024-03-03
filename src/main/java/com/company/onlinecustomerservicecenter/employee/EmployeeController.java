@@ -2,7 +2,6 @@ package com.company.onlinecustomerservicecenter.employee;
 
 import com.company.onlinecustomerservicecenter.dto.LoginDto;
 import com.company.onlinecustomerservicecenter.issue.Issue;
-import com.company.onlinecustomerservicecenter.issue.IssueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -10,20 +9,25 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/employee")
 public class EmployeeController {
 
     @Autowired
-    public EmployeeController(EmployeeService employeeService, IssueService issueService){
+    public EmployeeController(EmployeeService employeeService){
         this.employeeService = employeeService;
-        this.issueService = issueService;
     }
     private EmployeeService employeeService;
-    private IssueService issueService;
 
-    @PostMapping("register")
+    @PostMapping("register/employee")
     @ResponseStatus(code = HttpStatus.CREATED)
     public Employee registerNewEmployee(@RequestBody Employee employee) throws EmployeeException{
         return this.employeeService.addNewEmployee(employee);
+    }
+
+    @GetMapping("employees")
+    @ResponseStatus(code = HttpStatus.OK)
+    public List<Employee> getAllEmployees() throws EmployeeException {
+        return this.employeeService.getAllEmployees();
     }
 
     @PostMapping("create/issue")
@@ -54,16 +58,18 @@ public class EmployeeController {
         return this.employeeService.forgetPassword(id);
     }
 
-    @GetMapping("/viewIssuesByEmployee/{csId}")
+    @GetMapping("/viewIssues/{csId}")
     public List<Issue> viewIssuesByCustomer(@PathVariable Integer csId) throws EmployeeException{
 
         return this.employeeService.viewIssuesByCustomer(csId);
     }
 
-    @PostMapping("raiseIssueByEmployee/{cdsId}/{issueId}")
-    public Employee raiseIssueByCustomer(@PathVariable("cdsId") Integer cdsId, @PathVariable("issueId") Integer issueId) throws EmployeeException {
+    @PostMapping("raiseIssue/{cdsId}/{issueId}")
+    public String raiseIssueByEmployee(@PathVariable("cdsId") Integer cdsId, @PathVariable("issueId") Integer issueId) throws EmployeeException {
         return this.employeeService.raiseIssue(cdsId, issueId);
     }
+
+
 
 
 

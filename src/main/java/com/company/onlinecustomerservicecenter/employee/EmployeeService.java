@@ -19,8 +19,9 @@ public interface EmployeeService {
 
     String changePassword(LoginDto loginDto) throws EmployeeException;
 
-    Employee raiseIssue(Integer cdsId, Integer issueId) throws EmployeeException;
+    String raiseIssue(Integer cdsId, Integer issueId) throws EmployeeException;
 
     Issue addNewIssue(Issue issue) throws EmployeeException;
 
+    List<Employee> getAllEmployees();
 }
