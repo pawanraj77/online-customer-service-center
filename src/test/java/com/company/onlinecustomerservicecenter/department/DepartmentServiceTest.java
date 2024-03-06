@@ -69,6 +69,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
     }
 
 
+
     @Test
     void addDepartmentTest1(){
         Department department = new Department(1, "HR", null);
