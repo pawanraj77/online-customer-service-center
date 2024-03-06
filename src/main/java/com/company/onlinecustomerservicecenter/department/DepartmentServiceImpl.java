@@ -53,6 +53,13 @@ public class DepartmentServiceImpl implements DepartmentService{
         return d1;
     }
 
+    @Override
+    public Department updateDepartment(Department department) throws DepartmentException{
+        Optional<Department> optionalDepartment = this.departmentRepository.findById(department.getDeptId());
+        if (optionalDepartment.isEmpty())
+            throw new DepartmentException("This department does not exist");
+        return this.departmentRepository.save(department);
+    }
 
 
 }

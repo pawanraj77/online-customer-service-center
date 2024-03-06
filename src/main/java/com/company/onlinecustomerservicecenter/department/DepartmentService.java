@@ -12,4 +12,5 @@ public interface DepartmentService {
     Department deleteDepartmentById(Integer id) throws DepartmentException;
 
 
+    Department updateDepartment(Department department) throws DepartmentException;
 }
