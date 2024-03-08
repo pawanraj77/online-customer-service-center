@@ -85,15 +85,13 @@ public class SolutionServiceImpl implements SolutionService {
     }
 
     @Override
-    public Boolean markSolutionAsResolved(Integer solutionId) {
-        Optional<Solution> solutionOptional = solutionRepository.findById(solutionId);
+    public Solution checkSolutionExists(Integer solutionId) throws SolutionException {
+        Optional<Solution> solutionOptional = this.solutionRepository.findById(solutionId);
+
         if (solutionOptional.isPresent()) {
-            Solution solution = solutionOptional.get();
-            solution.setResolved(true);
-            solutionRepository.save(solution);
-            return true;
+            return solutionOptional.get();
         } else {
-            return false; // Solution not found
+            throw new SolutionException("A new solution will be provided to your issue!");
         }
     }
 }
