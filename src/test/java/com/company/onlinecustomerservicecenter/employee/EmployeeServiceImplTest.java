@@ -7,6 +7,7 @@ import com.company.onlinecustomerservicecenter.issue.IssueRepository;
 import com.company.onlinecustomerservicecenter.issue.IssueService;
 import org.junit.jupiter.api.*;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -211,7 +213,9 @@ class EmployeeServiceImplTest {
         issueRepository.delete(issue);
     }
 
-
+    @Transactional
+    @Test
+    @DisplayName(value = "raise issue by employee")
     void raiseIssueByEmployeeTest() throws EmployeeException, IssueException {
 
         Employee employee = null;

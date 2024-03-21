@@ -21,7 +21,7 @@ public class Employee {
     private String city;
 
 
-    @JsonIgnore
+//    @JsonIgnore
     @OneToMany(mappedBy = "employee", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Issue> issues = new ArrayList<>();
 
