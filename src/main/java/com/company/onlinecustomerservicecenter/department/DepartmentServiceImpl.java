@@ -1,3 +1,12 @@
+/****************************************************************************************************
+ *          @author          Jayshree
+ *          Description      It is a implementation of service class that provides function implementation
+ *                           of the services for managing departments.
+ *          Version          3.2.2
+ *          Created Date     10-feb-2024
+ *****************************************************************************************************/
+
+
 package com.company.onlinecustomerservicecenter.department;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +26,17 @@ public class DepartmentServiceImpl implements DepartmentService{
 
     private DepartmentRepository departmentRepository;
 
+
     @Override
     public Department addDepartment(Department d) throws DepartmentException{
-        Optional<Department> optionalDepartment = this.departmentRepository.findById(d.getDeptId());
+      
+        Optional<Department> optionalDepartment = this.departmentRepository.findByName(d.getDeptName());
         if (optionalDepartment.isPresent())
             throw new DepartmentException("This department is already present");
         return this.departmentRepository.save(d);
 
     }
+
 
     @Override
     public Department getDepartmentById(Integer id) throws DepartmentException{
