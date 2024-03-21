@@ -8,38 +8,40 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
+@CrossOrigin("http://localhost:4800/")
 public class IssueController {
     @Autowired
     private IssueService issueService;
 
-    @PostMapping("issue")
+    @PostMapping("issue/create")
     public Issue createIssue(@RequestBody Issue issue) throws IssueException {
         return this.issueService.createIssue(issue);
     }
 
-    @PutMapping("issue/issueid/issuedescription/issuesolution/{issueId}/{issueDescription}/{issueSolution}")
+    @PutMapping("issue/update/{issueId}/{issueDescription}/{issueSolution}")
     public Issue updateIssue(@PathVariable("issueId") Integer issueId, @PathVariable("issueDescription") String issueDescription, @PathVariable("issueSolution")Solution issueSolution)  throws IssueException{
         return this.issueService.updateIssue(issueId,issueDescription, issueSolution);
     }
 
-    @PutMapping("issue/issueid/{issueId}")
+    @PutMapping("issue/close/{issueId}")
     public Issue closeIssue(@PathVariable("issueId") Integer issueId)  throws IssueException{
         return this.issueService.closeIssue(issueId);
     }
-    @PutMapping("issue/issueid/issuedescription/{issueId}/{issueDescription}")
+    @PutMapping("issue/reOpen/{issueId}/{issueDescription}")
     public Issue reOpenIssue(@PathVariable("issueId") Integer issueId, @PathVariable("issueDescription") String issueDescription)  throws IssueException{
         return this.issueService.reOpenIssue(issueId, issueDescription);
     }
-    @DeleteMapping("issue/deleteissue/{issueId}")
+    @DeleteMapping("issue/delete/{issueId}")
     public Issue deleteIssue(@PathVariable("issueId") Integer issueId) throws IssueException{
         return this.issueService.deleteIssue(issueId);
     }
-    @GetMapping("issue/issueid/{issueId}")
+    @GetMapping("issue/view/{issueId}")
     public Issue viewIssue(@PathVariable("issueId") Integer issueId)  throws IssueException {
         return this.issueService.viewIssue(issueId);
     }
-    @GetMapping("issue")
+    @GetMapping("issues")
     public List<Issue> getAllIssues()  throws IssueException{
         return this.issueService.getAllIssues();
     }

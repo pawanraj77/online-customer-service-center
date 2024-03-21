@@ -30,7 +30,7 @@ import java.util.List;
     @Test
     void postSolutionWithValidIssueId() throws SolutionException {
 
-        Issue issue = new Issue(1, "Software", "Black Screen", null, null);
+        Issue issue = new Issue(1, "Software", "Black Screen", null, null, null);
         issueRepository.save(issue);
         Solution solution = new Solution(1, "Restart your Computer", LocalDate.now(), true, issue);
 
@@ -43,7 +43,7 @@ import java.util.List;
     @Test
     void postSolutionWithInvalidIssueId() {
 
-        Issue issue = new Issue(1, "Software", "Black Screen", null, null);
+        Issue issue = new Issue(1, "Software", "Black Screen", null, null, null);
         issueRepository.save(issue);
         Solution solution = new Solution(1, "Restart your Computer", LocalDate.now(), true, issue);
 
@@ -58,7 +58,7 @@ import java.util.List;
     //+ve
     @Test
     void updateSolutionWithValidIssueId() throws SolutionException {
-        Issue issue = new Issue(1, "Software", "Black Screen", null, null);
+        Issue issue = new Issue(1, "Software", "Black Screen", null, null, null);
         issueRepository.save(issue);
 
         Solution initialSolution = new Solution(1, "Restart your Computer", LocalDate.now(), true, issue);
@@ -84,7 +84,7 @@ import java.util.List;
     @Test
     void updateSolutionForIssueWithoutExistingSolution()  {
 
-        Issue issue = new Issue(1, "Software", "Black Screen", null, null);
+        Issue issue = new Issue(1, "Software", "Black Screen", null, null, null);
         issueRepository.save(issue);
 
         Solution updatedSolution = new Solution(2, "Scan for malware", LocalDate.now(), true, issue);

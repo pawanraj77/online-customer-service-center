@@ -2,9 +2,9 @@ package com.company.onlinecustomerservicecenter.operator;
 
 import com.company.onlinecustomerservicecenter.department.Department;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.company.onlinecustomerservicecenter.entity.Department;
+//import com.company.onlinecustomerservicecenter.entity.Department;
 import com.company.onlinecustomerservicecenter.issue.Issue;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+//import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -20,16 +20,19 @@ public class Operator {
     private String city;
     private Integer issuesSolved;
 
+    @JsonIgnore
     @OneToOne
     private IssueBucket issueBucket;
-    @JsonIgnore
+
     @ManyToOne
     @JsonIgnore
     private Department department;
     public Operator() {
     }
 
-    public Operator(String firstName, String lastName, String email, String password, String phoneNo, String city, Integer issuesSolved, IssueBucket issueBucket, Department department) {
+    public Operator(Integer operatorId,String firstName, String lastName, String email, String password, String phoneNo, String city, Integer issuesSolved, IssueBucket issueBucket, Department department) {
+        super();
+        this.operatorId=operatorId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -141,8 +144,7 @@ public class Operator {
 //         this.city = city;
 //         this.issues = issues;
 //         this.department = department;
-// >>>>>>> main
-    }
+//    }
 
     public void setDepartment(Department department) {
         this.department = department;

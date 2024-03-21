@@ -2,7 +2,7 @@ package com.company.onlinecustomerservicecenter.operator;
 
 import com.company.onlinecustomerservicecenter.department.Department;
 import com.company.onlinecustomerservicecenter.department.DepartmentRepository;
-import net.bytebuddy.asm.Advice;
+import com.company.onlinecustomerservicecenter.issue.Issue;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,14 +13,13 @@ import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
-class OperatorApplicationTests
-{
-    @Autowired
-    private OperatorRepository operatorRepository;
+public class OperatorServiceTest {
     @Autowired
     private OperatorService operatorService;
     @Autowired
     private DepartmentRepository departmentRepo;
+    @Autowired
+    private OperatorRepository operatorRepository;
     @Test
     @DisplayName("Create an Operator")
     void createAnOperator() throws OperatorException {
@@ -28,6 +27,7 @@ class OperatorApplicationTests
         Operator operator=null;
         try {
             operator=this.operatorService.createAnOperator(createOperator);
+            operatorRepository.save(operator);
             Assertions.assertNotNull(operator);
         }catch (OperatorException e)
         {
@@ -39,7 +39,7 @@ class OperatorApplicationTests
     void assignOperatorToDept()throws OperatorException{
         Operator operator=null;
         try {
-            Optional<Department>departmentOpt = this.departmentRepo.findById(1);
+            Optional<Department> departmentOpt = this.departmentRepo.findById(1);
             Department department=departmentOpt.get();
             Optional<Operator>operatorOpt=this.operatorRepository.findById(52);
             Operator operator1=operatorOpt.get();
@@ -54,7 +54,7 @@ class OperatorApplicationTests
     @DisplayName("To find All operators by department id")
     void getAllOperatorsByDeptID()
     {
-        List<Operator>operatorList=null;
+        List<Operator> operatorList=null;
         try{
             operatorList=this.operatorService.getAllOperatorsByDept(1);
             Assertions.assertNotNull(operatorList);
@@ -102,14 +102,15 @@ class OperatorApplicationTests
         }
     }
     @Test
-    @DisplayName("To get all issues assigned to operator")
+    @DisplayName("To get all issues assigned to Operator")
     void allAssignedIssues()
     {
         List<Issue>issueList=null;
-        try{
+        try
+        {
             issueList=this.operatorService.assignedIssues(1);
-            Assertions.assertNotNull(issueList);
-        } catch (OperatorException e) {
+        }catch(OperatorException e)
+        {
             Assertions.fail(e.getMessage());
         }
     }

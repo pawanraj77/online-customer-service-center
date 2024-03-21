@@ -14,7 +14,7 @@ public class Issue {
     private String issueType;
     private String description;
 
-    @JsonIgnore
+//    @JsonIgnore
     @OneToOne
     private Solution solution;
 
@@ -22,7 +22,7 @@ public class Issue {
     @ManyToOne(fetch = FetchType.EAGER)
     private Employee employee;
 
-    @JsonIgnore
+//    @JsonIgnore
     @ManyToOne
     private Operator operator;
 

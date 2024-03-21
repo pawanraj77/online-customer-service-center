@@ -38,10 +38,10 @@ public class OperatorServiceImpl implements OperatorService {
         return operator;
     }
 
-    @Override
-    public Issue addIssue(Issue issue) {
-        return this.issueRepository.save(issue);
-    }
+//    @Override
+//    public Issue addIssue(Issue issue) {
+//        return this.issueRepository.save(issue);
+//    }
 
     @Override
     public Operator assignIssue(Integer operatorId, Integer issueId) throws OperatorException {
@@ -62,10 +62,10 @@ public class OperatorServiceImpl implements OperatorService {
         return this.operatorRepository.findAll();
     }
 
-    @Override
-    public List<Issue> getAllIssues() {
-        return this.issueRepository.findAll();
-    }
+//    @Override
+//    public List<Issue> getAllIssues() {
+//        return this.issueRepository.findAll();
+//    }
 
     @Override
     public Operator issueSolved(Integer opertaorId, Integer issueId)throws OperatorException {
@@ -136,5 +136,16 @@ public class OperatorServiceImpl implements OperatorService {
         Operator operator=operatorOpt.get();
         List<Issue>allIssues=operator.getIssueBucket().getIssues();
         return allIssues;
+    }
+    @Override
+    public Operator operatorLogin(String email, String password)throws OperatorException
+    {
+        Optional<Operator>operatorOpt=this.operatorRepository.findByEmail(email);
+        if(operatorOpt.isEmpty())
+            throw new OperatorException("No operator exists with that email");
+        Operator operator=operatorOpt.get();
+        if(!operator.getPassword().equals(password))
+            throw new OperatorException("The entered password is incorrect,check your password and enter");
+        return operator;
     }
 }

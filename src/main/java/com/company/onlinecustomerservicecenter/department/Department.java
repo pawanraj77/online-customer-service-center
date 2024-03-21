@@ -17,10 +17,13 @@ public class Department {
     private Integer deptId;
     private String deptName;
 
+    private Boolean isAdmin = false;
+
     @OneToMany
     private List<Operator> operators=new ArrayList<>();
 
     public Department(Integer deptId, String deptName, List<Operator> operators) {
+        super();
         this.deptId = deptId;
         this.deptName = deptName;
         this.operators = operators;
