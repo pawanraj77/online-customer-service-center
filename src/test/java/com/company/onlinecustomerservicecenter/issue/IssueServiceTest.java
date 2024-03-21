@@ -148,7 +148,7 @@ public class IssueServiceTest {
         try {
             Issue savedIssue1 = this.issueService.createIssue(issue1);
             Issue savedIssue2 = this.issueService.createIssue(issue2);
-            List<Issue> allIssues = issueService.getAllIssues();
+            List<Issue> allIssues = this.issueService.getAllIssues();
 
             Assertions.assertNotNull(allIssues);
             Assertions.assertEquals(2, allIssues.size());

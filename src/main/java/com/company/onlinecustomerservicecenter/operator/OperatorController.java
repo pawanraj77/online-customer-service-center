@@ -1,5 +1,6 @@
 package com.company.onlinecustomerservicecenter.operator;
 
+import com.company.onlinecustomerservicecenter.dto.LoginDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,7 @@ import java.util.List;
 public class OperatorController {
     @Autowired
     private OperatorService operatorService;
+
     @PostMapping("create/operator")
     public Operator createOperator(@RequestBody Operator operator) throws OperatorException {
         return this.operatorService.createAnOperator(operator);
@@ -23,11 +25,11 @@ public class OperatorController {
         return this.operatorService.assignOperatorToDept(operatorId,deptId);
     }
 
-    @PostMapping("add/issues")
-    public Issue addIssue(@RequestBody Issue issue)
-    {
-        return this.operatorService.addIssue(issue);
-    }
+//    @PostMapping("add/issues")
+//    public Issue addIssue(@RequestBody Issue issue)
+//    {
+//        return this.operatorService.addIssue(issue);
+//    }
     @PutMapping("assign/issue/{operatorId}/{issueId}")
     public Operator assignIssueToOperator(@PathVariable("operatorId")Integer operatorId,@PathVariable("issueId") Integer issueId) throws OperatorException {
         return this.operatorService.assignIssue(operatorId,issueId);
@@ -37,11 +39,11 @@ public class OperatorController {
     {
         return this.operatorService.getAllOperator();
     }
-    @GetMapping("issues/all")
-    public  List<Issue> getAllIssues()
-    {
-        return this.operatorService.getAllIssues();
-    }
+//    @GetMapping("issues/all")
+//    public  List<Issue> getAllIssues()
+//    {
+//        return this.operatorService.getAllIssues();
+//    }
     @PutMapping("issueSolved/inCart/{operatorId}/{issueId}")
     public Operator issueSolved(@PathVariable("operatorId") Integer operatorId,@PathVariable("issueId") Integer issueId) throws OperatorException {
         return this.operatorService.issueSolved(operatorId,issueId);
@@ -51,12 +53,17 @@ public class OperatorController {
         return this.operatorService.deleteOperator(id);
     }
     @GetMapping("remainingIssue/{operatorId}")
-    public Integer remainingIssuesByOPerator(@PathVariable("operatorId")Integer operatorId) throws OperatorException {
+    public Integer remainingIssuesByOperator(@PathVariable("operatorId")Integer operatorId) throws OperatorException {
         return this.operatorService.remainingIssuesByOperator(operatorId);
     }
     @GetMapping("getOperatorsById/{deptId}")
     public List<Operator> getOperatorById(@PathVariable("deptId") Integer id) throws OperatorException {
         return this.operatorService.getAllOperatorsByDept(id);
+    }
+    @GetMapping("/operatorLogin")
+    public Operator operatorLogin(@RequestBody LoginDto loginDto)throws  OperatorException
+    {
+        return this.operatorService.operatorLogin(loginDto.getEmail(),loginDto.getPassword());
     }
 
 }

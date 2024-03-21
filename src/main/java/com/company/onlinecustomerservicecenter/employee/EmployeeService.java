@@ -10,18 +10,22 @@ public interface EmployeeService {
 
     Employee getEmployeeById(Integer cdsId) throws EmployeeException;
 
-    List<Issue> viewIssuesByCustomer(Integer csId) throws EmployeeException;
+    List<Issue> viewIssues(Integer csId) throws EmployeeException;
 
     Employee forgetPassword(Integer id) throws EmployeeException;
 
 
     Employee employeelogin(String email, String password) throws EmployeeException;
 
-    String changePassword(LoginDto loginDto) throws EmployeeException;
+    Employee changePassword(LoginDto loginDto) throws EmployeeException;
 
-    String raiseIssue(Integer cdsId, Integer issueId) throws EmployeeException;
+    Employee raiseIssue(Integer cdsId, String issueDescription) throws EmployeeException;
 
-    Issue addNewIssue(Issue issue) throws EmployeeException;
+//    Issue addNewIssue(Issue issue) throws EmployeeException;
 
     List<Employee> getAllEmployees();
+
+    Employee deleteEmployeeById(Integer cdsId) throws EmployeeException;
+
+    Employee updateEmployee(Employee employee) throws EmployeeException;
 }

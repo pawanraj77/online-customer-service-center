@@ -6,11 +6,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
-public class OperatorExceptionAdvice {
+public class OperatorControllerAdvice {
     @ExceptionHandler(value = {OperatorException.class})
     public ResponseEntity<String>operatorException(OperatorException e)
     {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }
-
