@@ -29,6 +29,7 @@ public class DepartmentServiceImpl implements DepartmentService{
 
     @Override
     public Department addDepartment(Department d) throws DepartmentException{
+      
         Optional<Department> optionalDepartment = this.departmentRepository.findByName(d.getDeptName());
         if (optionalDepartment.isPresent())
             throw new DepartmentException("This department is already present");

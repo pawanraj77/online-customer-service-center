@@ -14,14 +14,15 @@ public class Issue {
     private String issueType;
     private String description;
 
+//    @JsonIgnore
     @OneToOne
     private Solution solution;
 
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Employee employee;
 
-    @JsonIgnore
+//    @JsonIgnore
     @ManyToOne
     private Operator operator;
 
@@ -33,12 +34,13 @@ public class Issue {
         this.operator = operator;
     }
 
-    public Issue(Integer issueId, String issueType, String description, Solution solution, Employee employee) {
+    public Issue(Integer issueId, String issueType, String description, Solution solution, Employee employee, Operator operator) {
         this.issueId = issueId;
         this.issueType = issueType;
         this.description = description;
         this.solution = solution;
         this.employee = employee;
+        this.operator = operator;
     }
 
     public Integer getIssueId() {

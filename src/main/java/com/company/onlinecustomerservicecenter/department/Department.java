@@ -30,12 +30,15 @@ public class Department {
     @Size(min = 2, max = 50, message = "Department name must be between 2 and 50 characters long")
     private String deptName;
 
+
     @OneToMany(mappedBy = "department", fetch = FetchType.EAGER)
     private List<Operator> operators=new ArrayList<>();
     public Department() {
     }
 
+
     public Department(Integer deptId,String deptName, List<Operator> operators) {
+
         super();
         this.deptId = deptId;
         this.deptName = deptName;
