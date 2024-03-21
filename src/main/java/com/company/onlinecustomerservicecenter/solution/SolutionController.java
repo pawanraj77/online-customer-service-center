@@ -31,8 +31,8 @@ public class SolutionController {
     public List<Solution>  searchSolutionsByDate(@PathVariable("date") LocalDate date) throws SolutionException {
          return this.solutionService.searchSolutionsByDate(date);
     }
-    @PutMapping("resolved/{solutionId}")
-    public Boolean markSolutionAsResolved(@PathVariable Integer solutionId){
-        return this.solutionService.markSolutionAsResolved(solutionId);
+    @GetMapping("check/solution/exists/{solutionId}")
+    public Solution checkSolutionExists(@PathVariable Integer solutionId) throws SolutionException {
+        return this.solutionService.checkSolutionExists(solutionId);
     }
 }
