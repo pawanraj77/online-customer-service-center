@@ -1,13 +1,23 @@
 package com.company.onlinecustomerservicecenter.department;
 
 import com.company.onlinecustomerservicecenter.operator.Operator;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.util.ArrayList;
 import java.util.List;
+
+
+/*****************************************************************************************
+ *          @author          Jayshree
+ *          Description      It is a POJO class that represents a department in the system.
+ *                           department have depId and department name.
+ *          Version             3.2.2
+ *          Created Date      10-feb-2024
+ *****************************************************************************************/
+
+
 
 @Entity
 public class Department {
@@ -15,12 +25,18 @@ public class Department {
     @Id
     @GeneratedValue
     private Integer deptId;
+
+    @NotBlank(message = "Department name cannot be blank")
+    @Size(min = 2, max = 50, message = "Department name must be between 2 and 50 characters long")
     private String deptName;
 
-    @OneToMany
+    @OneToMany(mappedBy = "department", fetch = FetchType.EAGER)
     private List<Operator> operators=new ArrayList<>();
+    public Department() {
+    }
 
-    public Department(Integer deptId, String deptName, List<Operator> operators) {
+    public Department(Integer deptId,String deptName, List<Operator> operators) {
+        super();
         this.deptId = deptId;
         this.deptName = deptName;
         this.operators = operators;
@@ -50,6 +66,5 @@ public class Department {
         this.operators = operators;
     }
 
-    public Department() {
-    }
+
 }
