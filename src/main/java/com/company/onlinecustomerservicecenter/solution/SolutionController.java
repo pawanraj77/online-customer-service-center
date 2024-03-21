@@ -17,11 +17,11 @@ public class SolutionController {
     }
 
     @PostMapping("add/{issueId}")
-    public Solution postSolutionForGivenIssueId( @PathVariable("issueId") Integer issueId, @Valid @RequestBody Solution solution) throws SolutionException {
+    public Solution postSolutionForGivenIssueId( @PathVariable("issueId") Integer issueId, @Valid  Solution solution) throws SolutionException {
         return this.solutionService.postSolutionForGivenIssueId(issueId,solution);
     }
     @PutMapping("update/{issueId}")
-    public Solution updateSolutionForGivenIssueId( @PathVariable("issueId") Integer issueId,@Valid @RequestBody Solution solution) throws SolutionException {
+    public Solution updateSolutionForGivenIssueId( @PathVariable("issueId") Integer issueId,@Valid Solution solution) throws SolutionException {
         return this.solutionService.updateSolutionForGivenIssueId(issueId,solution);
     }
     @GetMapping("solutions")
