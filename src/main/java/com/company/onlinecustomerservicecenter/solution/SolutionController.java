@@ -1,11 +1,12 @@
 package com.company.onlinecustomerservicecenter.solution;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
-
+@CrossOrigin("http://localhost:4200/")
 @RestController
 public class SolutionController {
     //@Autowired
@@ -16,23 +17,21 @@ public class SolutionController {
     }
 
     @PostMapping("add/{issueId}")
-    public Solution postSolutionForGivenIssueId(@PathVariable("issueId") Integer issueId,Solution solution) throws SolutionException {
+    public Solution postSolutionForGivenIssueId( @PathVariable("issueId") Integer issueId, @Valid @RequestBody Solution solution) throws SolutionException {
         return this.solutionService.postSolutionForGivenIssueId(issueId,solution);
     }
     @PutMapping("update/{issueId}")
-    public Solution updateSolutionForGivenIssueId(@PathVariable("issueId") Integer issueId,Solution solution) throws SolutionException {
+    public Solution updateSolutionForGivenIssueId( @PathVariable("issueId") Integer issueId,@Valid @RequestBody Solution solution) throws SolutionException {
         return this.solutionService.updateSolutionForGivenIssueId(issueId,solution);
     }
-    @GetMapping("all")
+    @GetMapping("solutions")
     public List<Solution> getAllSolution() throws SolutionException {
         return  this.solutionService.getAllSolution();
     }
     @GetMapping("search/{date}")
-    public List<Solution>  searchSolutionsByDate(@PathVariable("date") LocalDate date) throws SolutionException {
+    public List<Solution>  searchSolutionsByDate(@Valid  @PathVariable("date") LocalDate date) throws SolutionException {
          return this.solutionService.searchSolutionsByDate(date);
     }
-    @GetMapping("check/solution/exists/{solutionId}")
-    public Solution checkSolutionExists(@PathVariable Integer solutionId) throws SolutionException {
-        return this.solutionService.checkSolutionExists(solutionId);
-    }
+
+
 }

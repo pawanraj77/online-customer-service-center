@@ -131,22 +131,6 @@ import java.util.List;
        }
    }
 
-   //+ve
-    @Test
-  void testCheckSolutionExistsPositive() throws SolutionException {
-      Solution s1 =  new Solution(1, "Restart your Computer", LocalDate.now(), null);
-      solutionRepository.save(s1);
-       Solution result = this.solutionService.checkSolutionExists(1);
-        Assertions.assertNotNull(result);
-  }
-    @Test
-     void testCheckSolutionExistsNegative() {
-        try {
-            Solution result = solutionService.checkSolutionExists(2);
-        } catch (SolutionException e) {
-           Assertions.assertEquals("A new solution will be provided to your issue!", e.getMessage());
-        }
-    }
 }
 
 
