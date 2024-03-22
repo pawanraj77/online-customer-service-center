@@ -14,5 +14,4 @@ public interface SolutionService {
     List<Solution> searchSolutionsByDate(LocalDate date) throws SolutionException;
 
 
-    Solution checkSolutionExists(Integer solutionId) throws SolutionException;
 }
