@@ -2,6 +2,8 @@ package com.company.onlinecustomerservicecenter.issue;
 
 import com.company.onlinecustomerservicecenter.solution.Solution;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
+import java.util.List;
+@CrossOrigin("http://localhost:4200/")
 @RestController
 @CrossOrigin("http://localhost:4800/")
 public class IssueController {
@@ -56,6 +60,11 @@ public class IssueController {
 //     public Issue addIssue(Issue issue){
 //         return this.issueService.addIssue(issue);
 //     }
+
+    @GetMapping("issues")
+    public List<Issue> getAllIssues(){
+         return  this.issueService.getAllIssues();
+    }
 
 }
 

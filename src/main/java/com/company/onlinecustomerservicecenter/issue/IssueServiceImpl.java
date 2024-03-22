@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+
 @Service
 public class IssueServiceImpl implements IssueService{
 
@@ -104,6 +105,15 @@ public class IssueServiceImpl implements IssueService{
 //         return this.issueRepository.save(issue);
 //     }
 
+    @Override
+    public Issue addIssue(Issue issue) {
+        return this.issueRepository.save(issue);
+    }
+
+    @Override
+    public List<Issue> getAllIssues() {
+        return this.issueRepository.findAll();
+    }
 }
    
 
