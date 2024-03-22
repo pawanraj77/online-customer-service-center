@@ -1,6 +1,7 @@
 package com.company.onlinecustomerservicecenter.employee;
 
 import com.company.onlinecustomerservicecenter.issue.Issue;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -101,14 +102,6 @@ public class Employee {
 
     public void setIssues(List<Issue> issues) {
         this.issues = issues;
-    }
-
-    public void addIssue(Issue issue) {
-
-        if (issues == null) {
-            issues = new ArrayList<>();
-        }
-        issues.add(issue);
     }
 
     public Employee() {

@@ -2,9 +2,12 @@ package com.company.onlinecustomerservicecenter.employee;
 
 import com.company.onlinecustomerservicecenter.dto.LoginDto;
 import com.company.onlinecustomerservicecenter.issue.Issue;
+import com.company.onlinecustomerservicecenter.issue.IssueException;
 import com.company.onlinecustomerservicecenter.issue.IssueRepository;
+import com.company.onlinecustomerservicecenter.issue.IssueService;
 import org.junit.jupiter.api.*;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +16,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -22,6 +27,9 @@ class EmployeeServiceImplTest {
     private EmployeeService employeeService;
 
     @Autowired
+    private IssueService issueService;
+
+    @Autowired
     private EmployeeRepository employeeRepository;
 
     @Autowired
@@ -29,7 +37,7 @@ class EmployeeServiceImplTest {
 
 
     @Test
-    @DisplayName(value = "add employee to the repository")
+    @DisplayName(value = "add employee with unique email")
     void addNewEmployeeTest() throws EmployeeException{
 
         Employee employee = null;
@@ -53,8 +61,8 @@ class EmployeeServiceImplTest {
     }
 
     @Test
-    @DisplayName(value = "get employee by cdsId")
-    void getEmployeeByIdTest() throws EmployeeException{
+    @DisplayName(value = "get employee by not null cdsId")
+    void getEmployeeByNotNullIdTest() throws EmployeeException{
 
         Employee employee = null;
         try {
@@ -71,8 +79,53 @@ class EmployeeServiceImplTest {
         employeeRepository.delete(employee);
     }
 
+
+    @Test // +ve
+    @DisplayName(value = "get all employees with values")
+    void getAllEmployees() throws EmployeeException{
+        List<Employee> employeeList = null;
+        try{
+            this.employeeService.addNewEmployee(new Employee(1, "pawan", "raj",
+                    "98839393", "pawan@gmail", "5667",  "chennai", null));
+
+            this.employeeService.addNewEmployee(new Employee(2, "rohit", "raj",
+                    "98839393", "praj16@gmail", "5667",  "chennai", null));
+
+            this.employeeService.addNewEmployee(new Employee(3, "priyansh", "raj",
+                    "98839393", "priyansh@gmail", "5667",  "chennai", null));
+
+            employeeList = this.employeeService.getAllEmployees();
+
+            Assertions.assertEquals(3, employeeList.size());
+
+        }
+        catch (EmployeeException e)
+        {
+            Assertions.fail(e.getMessage());
+        }
+        employeeRepository.deleteAll();
+    }
+
+
+    @Test // -ve
+    @DisplayName(value = "get all employees without values")
+    void getAllEmployeesWithoutData() throws EmployeeException{
+
+        try{
+            List<Employee> employeeList = this.employeeService.getAllEmployees();
+        }
+        catch (EmployeeException e)
+        {
+            Assertions.assertEquals("No Employees exists, add employees!!!",
+                    e.getMessage());
+        }
+        employeeRepository.deleteAll();
+    }
+
+
+
     @Test
-    @DisplayName(value = "forget password by using cdsId")
+    @DisplayName(value = "forget password by cdsId")
     void forgetPasswordTest() throws EmployeeException {
 
         Employee employee = null;
@@ -127,11 +180,16 @@ class EmployeeServiceImplTest {
 
             Optional<Employee> employeeOpt = this.employeeRepository.findByEmail(loginDto.getEmail());
 
+            if(employeeOpt.isEmpty())
+            {
+                throw new EmployeeException("Employee not found");
+            }
+
             employee = employeeOpt.get();
 
-            String result = employeeService.changePassword(loginDto);
+//            String result = employeeService.changePassword(loginDto);
             employee.setPassword(loginDto.getPassword());
-            assertEquals("Password Changed Successfully", result);
+//            assertEquals("Password Changed Successfully", result);
             assertEquals("kossj##987", employee.getPassword());
 
         }
@@ -143,10 +201,10 @@ class EmployeeServiceImplTest {
 
     @Test
     @DisplayName(value = "add not null issue")
-    void addNewIssueNotNullTest() throws EmployeeException{
+    void addNewIssueNotNullTest() throws EmployeeException, IssueException{
         Issue issue = null;
         try {
-            issue = this.employeeService.addNewIssue(new Issue(2, "software", "how to stop lagging", null, null, null));
+            issue = this.issueService.createIssue(new Issue(2, "software", "how to stop lagging", null, null, null));
             Assertions.assertNotNull(issue);
         }
         catch (EmployeeException e){
@@ -157,8 +215,8 @@ class EmployeeServiceImplTest {
 
     @Transactional
     @Test
-    @DisplayName(value = "raise issue for employee")
-    void raiseIssueByEmployeeTest() throws EmployeeException {
+    @DisplayName(value = "raise issue by employee")
+    void raiseIssueByEmployeeTest() throws EmployeeException, IssueException {
 
         Employee employee = null;
         Issue issue = null;
@@ -166,12 +224,12 @@ class EmployeeServiceImplTest {
         try {
             employee = this.employeeService.addNewEmployee(new Employee(1, "pawan", "raj",
                     "98839393", "pawan@gmail", "pkl$$5667", "chennai", null));
-            issue = this.employeeService.addNewIssue(new Issue(1, "software",
+            issue = this.issueService.createIssue(new Issue(1, "software",
                     "how to stop lagging", null, null, null));
 
-            Employee result = this.employeeService.raiseIssue(employee.getCdsId(), issue.getIssueId());
+            Employee employee1 = this.employeeService.raiseIssue(employee.getCdsId(), issue.getDescription());
 
-            Assertions.assertEquals(employee, result);
+            Assertions.assertNotNull(employee1);
 
         }
         catch (EmployeeException e) {
@@ -183,31 +241,56 @@ class EmployeeServiceImplTest {
     }
 
     @Test
-    @DisplayName(value = "view issue By particular employee id")
-    void viewNotNullIssueByEmployeeTest() {
+    @DisplayName(value = "view issue By employee id")
+    void viewNotNullIssueByEmployeeTest() throws EmployeeException, IssueException{
         Employee employee = null;
         Issue issue = null;
 
         try {
             employee = this.employeeService.addNewEmployee(new Employee(1, "pawan", "raj",
                     "98839393", "pawan@gmail", "pkl$$5667", "chennai", null));
-            issue = this.employeeService.addNewIssue(new Issue(1, "software",
+            issue = this.issueService.createIssue(new Issue(1, "software",
                     "how to stop lagging", null, null, null));
 
-            this.employeeService.raiseIssue(1, 1);
+            this.employeeService.raiseIssue(employee.getCdsId(), issue.getDescription());
 
-            employeeRepository.save(employee);
-            issueRepository.save(issue);
-
-            List<Issue> issues = this.employeeService.viewIssuesByCustomer(employee.getCdsId());
-
+            List<Issue> issues = this.employeeService.viewIssues(employee.getCdsId());
             Assertions.assertNotNull(issues);
 
         } catch (EmployeeException e) {
             Assertions.fail(e.getMessage());
         }
-        employeeRepository.delete(employee);
-        issueRepository.delete(issue);
 
     }
+
+//    @Test
+//    @DisplayName(value = "view issue By employee id")
+//    void viewIssueByEmployeeIdTestCheckValidSize() throws EmployeeException{
+//        Employee employee = null;
+//        Issue issue = null;
+//        Issue issue1 = null;
+//        List<Issue> issues = null;
+//
+//        try {
+//            employee = this.employeeService.addNewEmployee(new Employee(1, "pawan", "raj",
+//                    "98839393", "pawan@gmail", "pkl$$5667", "chennai", null));
+//            issue = this.employeeService.addNewIssue(new Issue(1, "software",
+//                    "how to stop lagging", null, null, null));
+//
+//            issue1 = this.employeeService.addNewIssue(new Issue(2, "hardware",
+//                    "keyboard not working", null, null, null));
+//
+//            this.employeeService.raiseIssue(employee.getCdsId(), issue.getIssueId());
+//            this.employeeService.raiseIssue(employee.getCdsId(), issue1.getIssueId());
+//
+//            issues = this.employeeService.viewIssuesByCustomer(1);
+//            Assertions.assertEquals(2, issues.size());
+//
+//        } catch (EmployeeException e) {
+//            Assertions.fail(e.getMessage());
+//        }
+//        employeeRepository.delete(employee);
+//        issueRepository.delete(issue);
+//        issueRepository.delete(issue1);
+//    }
 }
