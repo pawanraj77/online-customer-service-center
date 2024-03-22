@@ -1,11 +1,10 @@
 package com.company.onlinecustomerservicecenter.operator;
 
 import com.company.onlinecustomerservicecenter.department.Department;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.company.onlinecustomerservicecenter.entity.Department;
 import com.company.onlinecustomerservicecenter.issue.Issue;
 import jakarta.persistence.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 public class Operator {
@@ -18,12 +17,27 @@ public class Operator {
     private String password;
     private String phoneNo;
     private String city;
+    private Integer issuesSolved;
 
-    @OneToMany
-    private List<Issue> issues = new ArrayList<>();
-
+    @OneToOne
+    private IssueBucket issueBucket;
+    @JsonIgnore
     @ManyToOne
     private Department department;
+    public Operator() {
+    }
+
+    public Operator(String firstName, String lastName, String email, String password, String phoneNo, String city, Integer issuesSolved, IssueBucket issueBucket, Department department) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.phoneNo = phoneNo;
+        this.city = city;
+        this.issuesSolved = issuesSolved;
+        this.issueBucket = issueBucket;
+        this.department = department;
+    }
 
     public Integer getOperatorId() {
         return operatorId;
@@ -81,37 +95,54 @@ public class Operator {
         this.city = city;
     }
 
+    public Integer getIssuesSolved() {
+        return issuesSolved;
+    }
+      
+// =======
+//     public List<Issue> getIssues() {
+//         return issues;
+//     }
 
+//     public void setIssues(List<Issue> issues) {
+//         this.issues = issues;
+//     }
+
+//     public Department getDepartment() {
+//         return department;
+//        }
+// >>>>>>> main
+
+    public void setIssuesSolved(Integer issuesSolved) {
+        this.issuesSolved = issuesSolved;
+    }
+
+    public IssueBucket getIssueBucket() {
+        return issueBucket;
+    }
+
+    public void setIssueBucket(IssueBucket issueBucket) {
+        this.issueBucket = issueBucket;
+    }
 
     public Department getDepartment() {
         return department;
     }
+//     public Operator(Integer operatorId, String firstName, String lastName, String email, String password, String phoneNo, String city, List<Issue> issues, Department department) {
+//         super();
+//         this.operatorId = operatorId;
+//         this.firstName = firstName;
+//         this.lastName = lastName;
+//         this.email = email;
+//         this.password = password;
+//         this.phoneNo = phoneNo;
+//         this.city = city;
+//         this.issues = issues;
+//         this.department = department;
+// >>>>>>> main
+    }
 
     public void setDepartment(Department department) {
         this.department = department;
-    }
-
-    public List<Issue> getIssues() {
-        return issues;
-    }
-
-    public void setIssues(List<Issue> issues) {
-        this.issues = issues;
-    }
-
-    public Operator(Integer operatorId, String firstName, String lastName, String email, String password, String phoneNo, String city, List<Issue> issues, Department department) {
-        this.operatorId = operatorId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.phoneNo = phoneNo;
-        this.city = city;
-        this.issues = issues;
-        this.department = department;
-    }
-
-    public Operator() {
-        super();
     }
 }

@@ -8,11 +8,17 @@ import java.util.List;
 @Service
 public class IssueServiceImpl implements IssueService{
 
-    private final IssueRepository issueRepository;
     @Autowired
     public IssueServiceImpl(IssueRepository issueRepository) {
         this.issueRepository = issueRepository;
     }
+  
+  private final IssueRepository issueRepository;
+
+//     @Override
+//     public Issue addIssue(Issue issue) {
+//         return this.issueRepository.save(issue);
+//     }
 
     @Override
     public Issue addIssue(Issue issue) {
