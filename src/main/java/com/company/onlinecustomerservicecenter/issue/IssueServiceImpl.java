@@ -1,11 +1,14 @@
 package com.company.onlinecustomerservicecenter.issue;
 
+import com.company.onlinecustomerservicecenter.employee.Employee;
+import com.company.onlinecustomerservicecenter.employee.EmployeeException;
 import com.company.onlinecustomerservicecenter.solution.Solution;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
 
 @Service
 public class IssueServiceImpl implements IssueService{
@@ -15,9 +18,9 @@ public class IssueServiceImpl implements IssueService{
 
     @Override
     public Issue createIssue(Issue issue) throws IssueException {
-        Optional<Issue> issueOpt = this.issueRepository.findByIssueId(issue.getIssueId());
+        Optional<Issue> issueOpt = this.issueRepository.findByDescription(issue.getDescription());
         if(issueOpt.isPresent()){
-            throw new IssueException("Issue already exists with id: "+issueOpt.get().getIssueId());
+            throw new IssueException("Issue already exists, add new issue ");
         }
         this.issueRepository.save(issue);
         return issue;
@@ -42,12 +45,13 @@ public class IssueServiceImpl implements IssueService{
 
     @Override
     public Issue deleteIssue(Integer issueId) throws IssueException {
-        Optional<Issue> issueOpt = this.issueRepository.findByIssueId(issueId);
-        if(issueOpt.isEmpty()){
-            throw new IssueException("Issue does not exist with id: "+issueId);
+        Optional<Issue> issueOpt = this.issueRepository.findById(issueId);
+        if(issueOpt.isEmpty())
+        {
+            throw new IssueException("No issue is present to delete");
         }
-        Issue issue = issueOpt.get();
-        this.issueRepository.deleteById(issueId);
+        Issue issue=issueOpt.get();
+        this.issueRepository.delete(issue);
         return issue;
 
     }
@@ -88,7 +92,12 @@ public class IssueServiceImpl implements IssueService{
 
     @Override
     public List<Issue> getAllIssues() throws IssueException {
-        return this.issueRepository.findAll();
+        List<Issue> issues = this.issueRepository.findAll();
+        if(issues.isEmpty())
+        {
+            throw new EmployeeException("No Issues exists, add issues!!!");
+        }
+        return issues;
     }
   
     //     @Override
@@ -96,6 +105,15 @@ public class IssueServiceImpl implements IssueService{
 //         return this.issueRepository.save(issue);
 //     }
 
+    @Override
+    public Issue addIssue(Issue issue) {
+        return this.issueRepository.save(issue);
+    }
+
+    @Override
+    public List<Issue> getAllIssues() {
+        return this.issueRepository.findAll();
+    }
 }
    
 

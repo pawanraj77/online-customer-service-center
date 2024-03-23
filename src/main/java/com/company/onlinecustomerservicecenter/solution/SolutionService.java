@@ -13,5 +13,5 @@ public interface SolutionService {
 
     List<Solution> searchSolutionsByDate(LocalDate date) throws SolutionException;
 
-    Boolean markSolutionAsResolved(Integer solutionId);
+
 }

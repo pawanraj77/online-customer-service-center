@@ -1,5 +1,6 @@
 package com.company.onlinecustomerservicecenter.issue;
 
+
 import com.company.onlinecustomerservicecenter.solution.Solution;
 
 import java.util.List;
@@ -19,5 +20,4 @@ public interface IssueService {
 
     List<Issue> getAllIssues() throws IssueException;
   
-//     Issue addIssue(Issue issue);
 }

@@ -2,7 +2,6 @@ package com.company.onlinecustomerservicecenter.employee;
 
 import com.company.onlinecustomerservicecenter.dto.LoginDto;
 import com.company.onlinecustomerservicecenter.issue.Issue;
-import com.company.onlinecustomerservicecenter.issue.IssueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -10,15 +9,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin("http://localhost:4800/")
+//@RequestMapping("/api/employee")
 public class EmployeeController {
 
     @Autowired
-    public EmployeeController(EmployeeService employeeService, IssueService issueService){
+    public EmployeeController(EmployeeService employeeService){
         this.employeeService = employeeService;
-        this.issueService = issueService;
     }
     private EmployeeService employeeService;
-    private IssueService issueService;
 
     @PostMapping("register")
     @ResponseStatus(code = HttpStatus.CREATED)
@@ -26,11 +25,29 @@ public class EmployeeController {
         return this.employeeService.addNewEmployee(employee);
     }
 
-    @PostMapping("create/issue")
-    @ResponseStatus(code = HttpStatus.CREATED)
-    public Issue addIssue(@RequestBody Issue issue) throws EmployeeException{
-        return this.employeeService.addNewIssue(issue);
+    @GetMapping("employees")
+    @ResponseStatus(code = HttpStatus.OK)
+    public List<Employee> getAllEmployees() throws EmployeeException {
+        return this.employeeService.getAllEmployees();
     }
+
+    @DeleteMapping("employee/{cdsId}")
+    @ResponseStatus(code = HttpStatus.OK)
+    public Employee deleteEmployeeById(@PathVariable("cdsId") Integer cdsId) throws EmployeeException {
+        return this.employeeService.deleteEmployeeById(cdsId);
+    }
+
+    @PutMapping("employee")
+    @ResponseStatus(code = HttpStatus.OK)
+    public Employee updateEmployee(@RequestBody Employee employee) throws EmployeeException {
+        return this.employeeService.updateEmployee(employee);
+    }
+
+//    @PostMapping("create/issue")
+//    @ResponseStatus(code = HttpStatus.CREATED)
+//    public Issue addIssue(@RequestBody Issue issue) throws EmployeeException{
+//        return this.employeeService.addNewIssue(issue);
+//    }
 
     @GetMapping("employee/{cdsId}")
     @ResponseStatus(code = HttpStatus.OK)
@@ -44,7 +61,7 @@ public class EmployeeController {
     }
 
     @PutMapping("/changePassword")
-    public String changePassword(@RequestBody LoginDto loginDto) throws EmployeeException{
+    public Employee changePassword(@RequestBody LoginDto loginDto) throws EmployeeException{
         return this.employeeService.changePassword(loginDto);
 
     }
@@ -54,16 +71,18 @@ public class EmployeeController {
         return this.employeeService.forgetPassword(id);
     }
 
-    @GetMapping("/viewIssuesByEmployee/{csId}")
-    public List<Issue> viewIssuesByCustomer(@PathVariable Integer csId) throws EmployeeException{
+    @GetMapping("/viewIssues/{cdsId}")
+    public List<Issue> viewIssuesByEmployee(@PathVariable Integer cdsId) throws EmployeeException{
 
-        return this.employeeService.viewIssuesByCustomer(csId);
+        return this.employeeService.viewIssues(cdsId);
     }
 
-    @PostMapping("raiseIssueByEmployee/{cdsId}/{issueId}")
-    public Employee raiseIssueByCustomer(@PathVariable("cdsId") Integer cdsId, @PathVariable("issueId") Integer issueId) throws EmployeeException {
-        return this.employeeService.raiseIssue(cdsId, issueId);
+    @PostMapping("raiseIssue/{cdsId}/{description}")
+    public Employee raiseIssueByEmployee(@PathVariable("cdsId") Integer cdsId, @PathVariable("description") String issueDescription) throws EmployeeException {
+        return this.employeeService.raiseIssue(cdsId, issueDescription);
     }
+
+
 
 
 

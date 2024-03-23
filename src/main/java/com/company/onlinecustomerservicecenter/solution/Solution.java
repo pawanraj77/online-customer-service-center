@@ -7,6 +7,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
+
 
 import java.time.LocalDate;
 @Entity
@@ -14,10 +19,16 @@ public class Solution {
     @Id
     @GeneratedValue
     private Integer solutionId;
+
+    @NotEmpty(message = "Description cannot be empty,it is a required field!")
+    @Size(min = 5,message = "Description should have 5 characters atleast!")
     private String description;
+
+
+    @NotNull(message = "Date cannot be null")
     private LocalDate date;
 
-    private Boolean resolved = false;
+
     @JsonIgnore
     @OneToOne
     private Issue issue;
@@ -26,11 +37,10 @@ public class Solution {
     public Solution() {
     }
 
-    public Solution(Integer solutionId, String description, LocalDate date, Boolean resolved, Issue issue) {
+    public Solution(Integer solutionId, String description, LocalDate date, Issue issue) {
         this.solutionId = solutionId;
         this.description = description;
         this.date = date;
-        this.resolved = resolved;
         this.issue = issue;
     }
 
@@ -56,14 +66,6 @@ public class Solution {
 
     public void setDate(LocalDate date) {
         this.date = date;
-    }
-
-    public Boolean getResolved() {
-        return resolved;
-    }
-
-    public void setResolved(Boolean resolved) {
-        this.resolved = resolved;
     }
 
     public Issue getIssue() {

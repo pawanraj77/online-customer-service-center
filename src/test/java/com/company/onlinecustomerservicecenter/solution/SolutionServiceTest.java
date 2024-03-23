@@ -11,11 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 
-//Solution postSolutionForGivenIssueId(Integer issueId,Solution solution) throws SolutionException;
-//Solution updateSolutionForGivenIssueId(Integer issueId, Solution solution) throws SolutionException;
-//List<Solution> getAllSolution() throws SolutionException;
-//List<Solution> searchSolutionsByDate(LocalDate date) throws SolutionException;
-//Boolean markSolutionAsResolved(Integer solutionId);
+
 @SpringBootTest
  class SolutionServiceTest {
 
@@ -30,9 +26,9 @@ import java.util.List;
     @Test
     void postSolutionWithValidIssueId() throws SolutionException {
 
-        Issue issue = new Issue(1, "Software", "Black Screen", null, null);
+        Issue issue = new Issue(1, "Software", "Black Screen", null, null, null);
         issueRepository.save(issue);
-        Solution solution = new Solution(1, "Restart your Computer", LocalDate.now(), true, issue);
+        Solution solution = new Solution(1, "Restart your Computer", LocalDate.now(), issue);
 
         Solution postedSolution = solutionService.postSolutionForGivenIssueId(1, solution);
 
@@ -43,31 +39,30 @@ import java.util.List;
     @Test
     void postSolutionWithInvalidIssueId() {
 
-        Issue issue = new Issue(1, "Software", "Black Screen", null, null);
+        Issue issue = new Issue(1, "Software", "Black Screen", null, null, null);
         issueRepository.save(issue);
-        Solution solution = new Solution(1, "Restart your Computer", LocalDate.now(), true, issue);
+        Solution solution = new Solution(1, "Restart your Computer", LocalDate.now(),  issue);
 
         Assertions.assertThrows(SolutionException.class, () -> solutionService.postSolutionForGivenIssueId(99, solution));
     }
     //-ve
     @Test
     void postSolutionWithNullSolution() {
-
         Assertions.assertThrows(SolutionException.class, () -> solutionService.postSolutionForGivenIssueId(1, null));
     }
     //+ve
     @Test
     void updateSolutionWithValidIssueId() throws SolutionException {
-        Issue issue = new Issue(1, "Software", "Black Screen", null, null);
+        Issue issue = new Issue(1, "Software", "Black Screen", null, null, null);
         issueRepository.save(issue);
 
-        Solution initialSolution = new Solution(1, "Restart your Computer", LocalDate.now(), true, issue);
+        Solution initialSolution = new Solution(1, "Restart your Computer", LocalDate.now(),  issue);
         solutionRepository.save(initialSolution);
 
         issue.setSolution(initialSolution);
         issueRepository.save(issue);
 
-        Solution updatedSolution = new Solution(1, "Scan for malware", LocalDate.now(), true, issue);
+        Solution updatedSolution = new Solution(1, "Scan for malware", LocalDate.now(), issue);
         Solution updatedSolutionResult = solutionService.updateSolutionForGivenIssueId(1, updatedSolution);
 
         Assertions.assertNotNull(updatedSolutionResult);
@@ -76,7 +71,7 @@ import java.util.List;
     //-ve
     @Test
     void updateSolutionWithInvalidIssueId() {
-        Solution updatedSolution = new Solution(2, "Scan for malware", LocalDate.now(), true, null);
+        Solution updatedSolution = new Solution(2, "Scan for malware", LocalDate.now(),  null);
        Assertions.assertThrows(SolutionException.class, () -> solutionService.updateSolutionForGivenIssueId(100, updatedSolution));
 
     }
@@ -84,10 +79,10 @@ import java.util.List;
     @Test
     void updateSolutionForIssueWithoutExistingSolution()  {
 
-        Issue issue = new Issue(1, "Software", "Black Screen", null, null);
+        Issue issue = new Issue(1, "Software", "Black Screen", null, null, null);
         issueRepository.save(issue);
 
-        Solution updatedSolution = new Solution(2, "Scan for malware", LocalDate.now(), true, issue);
+        Solution updatedSolution = new Solution(2, "Scan for malware", LocalDate.now(),  issue);
 
         try {
             solutionService.updateSolutionForGivenIssueId(1, updatedSolution);
@@ -99,8 +94,8 @@ import java.util.List;
     //+ve
    @Test
     void getAllSolutionWithData() throws SolutionException {
-        Solution s1 =  new Solution(1, "Restart your Computer", LocalDate.now(), true, null);
-        Solution s2 =  new Solution(2, "Scan for Malware", LocalDate.now(), true, null);
+        Solution s1 =  new Solution(1, "Restart your Computer", LocalDate.now(), null);
+        Solution s2 =  new Solution(2, "Scan for Malware", LocalDate.now(), null);
         solutionRepository.save(s1);
         solutionRepository.save(s2);
         List<Solution> solutionList = this.solutionService.getAllSolution();
@@ -120,8 +115,8 @@ import java.util.List;
 @Test
    void searchSolutionsByDateWithData() throws SolutionException {
         LocalDate searchDate = LocalDate.of(2022, 3, 15);
-       Solution s1 =  new Solution(1, "Restart your Computer", searchDate, true, null);
-       Solution s2 =  new Solution(2, "Scan for Malware", searchDate, true, null);
+       Solution s1 =  new Solution(1, "Restart your Computer", searchDate, null);
+       Solution s2 =  new Solution(2, "Scan for Malware", searchDate, null);
        List<Solution> solutionList = this.solutionService.searchSolutionsByDate(searchDate);
        Assertions.assertNotNull(solutionList);
    }
@@ -136,22 +131,6 @@ import java.util.List;
        }
    }
 
-   //+ve
-    @Test
-    void markSolutionAsResolvedWithValidId() {
-        Solution existingSolution = new Solution(1, "Example solution", LocalDate.now(), false, null);
-        solutionRepository.save(existingSolution);
-
-        boolean result = solutionService.markSolutionAsResolved(1);
-        Assertions.assertTrue(result);
-
-    }
-    //-ve
-    @Test
-    void markSolutionAsResolvedWithInvalidId() {
-        boolean result = solutionService.markSolutionAsResolved(999);
-        Assertions.assertFalse(result);
-    }
 }
 
 
