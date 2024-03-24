@@ -1,12 +1,22 @@
-package com.company.onlinecustomerservicecenter.employee;
+/*************************************************************************************
+ *          @author          Pawan Raj
+ *          Description      It is a controller class that handles HTTP requests for
+ *                           employee-related operations.This includes adding a new
+ *                           employee, retrieving employee by ID,retrieving all
+ *                           employees, deleting employee by ID, and updating
+ *                           employee, login employee, change password by employee,
+ *                           forget password by employee, raise issue by employee
+ *                           and view issue by employee.
+ *          Version          3.2.2
+ *          Created Date     10-feb-2024
+ *************************************************************************************/
 
+package com.company.onlinecustomerservicecenter.employee;
 import com.company.onlinecustomerservicecenter.dto.LoginDto;
 import com.company.onlinecustomerservicecenter.issue.Issue;
-import com.company.onlinecustomerservicecenter.issue.IssueException;
 import com.company.onlinecustomerservicecenter.issue.IssueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Optional;
@@ -83,15 +93,6 @@ public class EmployeeServiceImpl implements EmployeeService{
         employeeRepository.save(employeeFound);
         return employeeFound;
     }
-
-//    @Override
-//    public Issue addNewIssue(Issue issue) throws EmployeeException{
-//        Optional<Issue> issueOpt = this.issueRepository.findByDescription(issue.getDescription());
-//        if(issueOpt.isPresent())
-//            throw new EmployeeException("Issue already exists, Add new issue");
-//
-//        return this.issueRepository.save(issue);
-//    }
 
     @Override
     public List<Employee> getAllEmployees() throws EmployeeException{
