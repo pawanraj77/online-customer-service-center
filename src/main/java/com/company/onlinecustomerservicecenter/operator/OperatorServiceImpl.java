@@ -25,9 +25,9 @@ public class OperatorServiceImpl implements OperatorService {
     @Override
     public Operator createAnOperator(Operator operator)throws OperatorException
     {
-        Optional<Operator>operatorOpt=this.operatorRepository.findById(operator.getOperatorId());
-        if(operatorOpt.isPresent())
-            throw new OperatorException("The operator is already present!...");
+//        Optional<Operator>operatorOpt=this.operatorRepository.findById(operator.getOperatorId());
+//        if(operatorOpt.isPresent())
+//            throw new OperatorException("The operator is already present!...");
         Optional<Operator>operatorOpt1=this.operatorRepository.findByEmail(operator.getEmail());
         if(operatorOpt1.isPresent())
             throw new OperatorException("This email already exists try with new Email!...");
@@ -38,10 +38,10 @@ public class OperatorServiceImpl implements OperatorService {
         return operator;
     }
 
-//    @Override
-//    public Issue addIssue(Issue issue) {
-//        return this.issueRepository.save(issue);
-//    }
+    @Override
+    public Issue addIssue(Issue issue) {
+        return this.issueRepository.save(issue);
+    }
 
     @Override
     public Operator assignIssue(Integer operatorId, Integer issueId) throws OperatorException {
@@ -83,12 +83,13 @@ public class OperatorServiceImpl implements OperatorService {
     }
 
     @Override
-    public Boolean deleteOperator(Integer id) throws OperatorException{
+    public Operator deleteOperator(Integer id) throws OperatorException{
         Optional<Operator>operatorOpt=this.operatorRepository.findById(id);
         if(operatorOpt.isEmpty())
             throw new OperatorException("There is no operator to remove!.....");
-        this.operatorRepository.delete(operatorOpt.get());
-        return true;
+        Operator operator=operatorOpt.get();
+        this.operatorRepository.delete(operator);
+        return operator ;
     }
 
     @Override
@@ -122,6 +123,8 @@ public class OperatorServiceImpl implements OperatorService {
             throw new OperatorException("There is no department to add operator");
         Operator operator=operatorOpt.get();
         Department department=departmentOpt.get();
+        if(operator.getDepartment()!=null)
+            throw new OperatorException("Operator is already assigned to department");
         operator.setDepartment(department);
         operator=this.operatorRepository.save(operator);
         department.getOperators().add(operator);
@@ -138,6 +141,15 @@ public class OperatorServiceImpl implements OperatorService {
         return allIssues;
     }
     @Override
+    public Operator getOperator(Integer id) throws OperatorException
+    {
+        Optional<Operator>operatorOpt=this.operatorRepository.findById(id);
+        if(operatorOpt.isEmpty())
+            throw new OperatorException("No operator exists with that id");
+        Operator operator=operatorOpt.get();
+        return operator;
+    }
+    @Override
     public Operator operatorLogin(String email, String password)throws OperatorException
     {
         Optional<Operator>operatorOpt=this.operatorRepository.findByEmail(email);
@@ -148,4 +160,20 @@ public class OperatorServiceImpl implements OperatorService {
             throw new OperatorException("The entered password is incorrect,check your password and enter");
         return operator;
     }
+    @Override
+    public Operator updateOperator(Operator operator)throws OperatorException{
+        Optional<Operator>operatorOpt=this.operatorRepository.findByEmail(operator.getEmail());
+        if(operatorOpt.isEmpty())
+            throw new OperatorException("Email doesnt exist try adding Operator");
+        Operator operator1=operatorOpt.get();
+        operator1.setFirstName(operator.getFirstName());
+        operator1.setLastName(operator.getLastName());
+        operator1.setCity(operator.getCity());
+        operator1.setIssuesSolved(operator.getIssuesSolved());
+        operator1.setPhoneNo(operator.getPhoneNo());
+        operator1=this.operatorRepository.save(operator1);
+        return operator1;
+    }
+
+
 }

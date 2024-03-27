@@ -15,6 +15,7 @@ package com.company.onlinecustomerservicecenter.employee;
 
 import com.company.onlinecustomerservicecenter.dto.LoginDto;
 import com.company.onlinecustomerservicecenter.issue.Issue;
+import com.company.onlinecustomerservicecenter.solution.Solution;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -125,42 +126,63 @@ public class EmployeeController {
 
 /************************************************************************************
  * Method: 			            - changePassword
- * Description: 			    - For deleting the employee by id
- * @param loginDto              - employee cdsId
- * @return employee             - return the deleted employee
- * @throws EmployeeException    - if an error occurs during the deletion of employee
+ * Description: 			    - For changing the password of the employee
+ * @param loginDto              - employee login
+ * @return employee             - return the employee after changing the password
+ * @throws EmployeeException    - if an error occurs during the password changing of employee
  * Created By                   - Pawan Raj
  * Created Date                 - 10-feb-2024
-
  ***********************************************************************************/
+
     @PutMapping("employee/changePassword")
     public Employee changePassword(@RequestBody LoginDto loginDto) throws EmployeeException{
         return this.employeeService.changePassword(loginDto);
 
     }
 
+/************************************************************************************
+ * Method: 			            - forgetPassword
+ * Description: 			    - For forget the password by employee cdsId
+ * @param id                    - employee cdsId
+ * @return employee             - return the employee after adding new password
+ * @throws EmployeeException    - if an error occurs during the forget password of employee
+ * Created By                   - Pawan Raj
+ * Created Date                 - 10-feb-2024
+ ***********************************************************************************/
     @GetMapping("employee/forgetPassword/{cdsId}")
     public Employee forgetPassword(@PathVariable("cdsId") Integer id) throws EmployeeException{
         return this.employeeService.forgetPassword(id);
     }
 
+/************************************************************************************
+ * Method: 			            - viewIssuesByEmployee
+ * Description: 			    - For viewing or getting the issues of employee by id
+ * @param cdsId                 - employee cdsId
+ * @return employee             - return the list of issues raised by employee
+ * @throws EmployeeException    - if an error occurs during getting the issues of employee
+ * Created By                   - Pawan Raj
+ * Created Date                 - 10-feb-2024
+ ***********************************************************************************/
     @GetMapping("employee/issues/{cdsId}")
     public List<Issue> viewIssuesByEmployee(@PathVariable Integer cdsId) throws EmployeeException{
 
         return this.employeeService.viewIssues(cdsId);
     }
 
+/************************************************************************************
+ * Method: 			                - raiseIssueByEmployee
+ * Description: 			        - For raising the issue by employee using cdsId and issue description
+ * @param cdsId,issueDescription    - employee cdsId and issue description
+ * @return employee                 - return the employee after raising the issue
+ * @throws EmployeeException        - if an error occurs during the raising of issue by employee
+ * Created By                       - Pawan Raj
+ * Created Date                     - 10-feb-2024
+
+ ***********************************************************************************/
     @PostMapping("employee/issue/{cdsId}/{description}")
     public Employee raiseIssueByEmployee(@PathVariable("cdsId") Integer cdsId, @PathVariable("description") String issueDescription) throws EmployeeException {
         return this.employeeService.raiseIssue(cdsId, issueDescription);
     }
-
-
-
-
-
-
-
 
 
 }

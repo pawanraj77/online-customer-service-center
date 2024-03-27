@@ -105,15 +105,15 @@ public class IssueServiceImpl implements IssueService{
 //         return this.issueRepository.save(issue);
 //     }
 
-    @Override
-    public Issue addIssue(Issue issue) {
-        return this.issueRepository.save(issue);
-    }
+//    @Override
+//    public Issue addIssue(Issue issue) {
+//        return this.issueRepository.save(issue);
+//    }
 
-    @Override
-    public List<Issue> getAllIssues() {
-        return this.issueRepository.findAll();
-    }
+//    @Override
+//    public List<Issue> getAllIssues() {
+//        return this.issueRepository.findAll();
+//    }
 }
    
 

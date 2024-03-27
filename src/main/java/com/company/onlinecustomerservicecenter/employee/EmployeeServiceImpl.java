@@ -1,24 +1,21 @@
-/*************************************************************************************
+/****************************************************************************************************
  *          @author          Pawan Raj
- *          Description      It is a controller class that handles HTTP requests for
- *                           employee-related operations.This includes adding a new
- *                           employee, retrieving employee by ID,retrieving all
- *                           employees, deleting employee by ID, and updating
- *                           employee, login employee, change password by employee,
- *                           forget password by employee, raise issue by employee
- *                           and view issue by employee.
+ *          Description      It is a implementation of service class that provides function implementation
+ *                           of the services for managing employees.
  *          Version          3.2.2
  *          Created Date     10-feb-2024
- *************************************************************************************/
+ *****************************************************************************************************/
 
 package com.company.onlinecustomerservicecenter.employee;
 import com.company.onlinecustomerservicecenter.dto.LoginDto;
 import com.company.onlinecustomerservicecenter.issue.Issue;
 import com.company.onlinecustomerservicecenter.issue.IssueRepository;
+import com.company.onlinecustomerservicecenter.solution.Solution;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -124,6 +121,7 @@ public class EmployeeServiceImpl implements EmployeeService{
         }
         return this.employeeRepository.save(employee);
     }
+
 
     @Override
     public List<Issue> viewIssues(Integer cdsId) throws EmployeeException{

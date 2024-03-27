@@ -12,7 +12,7 @@ import java.util.List;
 
 
 import java.util.List;
-@CrossOrigin("http://localhost:4200/")
+
 @RestController
 @CrossOrigin("http://localhost:4800/")
 public class IssueController {
@@ -61,10 +61,10 @@ public class IssueController {
 //         return this.issueService.addIssue(issue);
 //     }
 
-    @GetMapping("issues")
-    public List<Issue> getAllIssues(){
-         return  this.issueService.getAllIssues();
-    }
+//    @GetMapping("issues")
+//    public List<Issue> getAllIssues(){
+//         return  this.issueService.getAllIssues();
+//    }
 
 }
 
